@@ -1,0 +1,23 @@
+<card>
+  <div class="list-group list-group-flush">
+    <a href="#" class="list-group-item list-group-item-action d-flex align-items-center text-body">
+      <div class="flex-fill pe-3">
+        <div class="fw-600">Library (20)</div>
+        <div class="fs-12px">3,192 Image Found</div>
+      </div>
+      <div>
+        <i class="fa fa-chevron-right fa-lg text-muted"></i>
+      </div>
+    </a>
+  </div>
+  <card-body>
+    <div class="widget-img-list">
+      <div class="widget-img-list-item"><a href="/assets/img/gallery/gallery-1.jpg" data-lity><span class="img" style="background-image: url(/assets/img/gallery/gallery-1.jpg)"></span></a></div>
+      <div class="widget-img-list-item"><a href="/assets/img/gallery/gallery-2.jpg" data-lity><span class="img" style="background-image: url(/assets/img/gallery/gallery-2.jpg)"></span></a></div>
+      <div class="widget-img-list-item"><a href="/assets/img/gallery/gallery-3.jpg" data-lity><span class="img" style="background-image: url(/assets/img/gallery/gallery-3.jpg)"></span></a></div>
+      <div class="widget-img-list-item"><a href="/assets/img/gallery/gallery-4.jpg" data-lity><span class="img" style="background-image: url(/assets/img/gallery/gallery-4.jpg)"></span></a></div>
+      <div class="widget-img-list-item"><a href="/assets/img/gallery/gallery-5.jpg" data-lity><span class="img" style="background-image: url(/assets/img/gallery/gallery-5.jpg)"></span></a></div>
+      ...
+    </div>
+  </card-body>
+</card>

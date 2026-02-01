@@ -1,0 +1,78 @@
+body {
+	& .ql-toolbar,
+	& .ql-container {
+		--ql-dropdown-bg: #{ $dropdown-bg };
+		
+		border-color: var(--#{$prefix}border-color) !important;
+		
+		& .ql-picker {
+			color: var(--#{$prefix}body-color);
+		}
+		& button,
+		& .ql-picker-label,
+		& .ql-picker-item {
+			border-color: transparent !important;
+			
+			&:hover,
+			&:focus {
+				background: rgba(var(--#{$prefix}body-color-rgb), .25) !important;
+				border-radius: $border-radius;
+			}
+			&.ql-active {
+				background: rgba(var(--#{$prefix}theme-rgb), .25) !important;
+				border-radius: $border-radius;
+				color: var(--#{$prefix}theme) !important;
+				border: none !important;
+				
+				& .ql-stroke {
+					stroke: var(--#{$prefix}theme) !important;
+				}
+				& .ql-fill {
+					fill: var(--#{$prefix}theme) !important;
+				}
+			}
+		}
+		& .ql-picker-options {
+			background: var(--ql-dropdown-bg);
+			border-color: var(--#{$prefix}border-color) !important;
+			
+			& .ql-picker-item {
+				border-radius: 0 !important;
+			
+				&:hover,
+				&:focus {
+					background: rgba(var(--#{$prefix}body-color-rgb), .25) !important;
+					color: var(--#{$prefix}body-color);
+				}
+				&.ql-selected {
+					background: rgba(var(--#{$prefix}theme-rgb), .25) !important;
+					color: var(--#{$prefix}theme) !important;
+				}
+			}
+		}
+		& .ql-stroke {
+			fill: transparent;
+			stroke: var(--#{$prefix}body-color);
+		}
+	}
+}
+.border-0 .ql-toolbar {
+	border-top: none !important;
+	border-left: none !important;
+	border-right: none !important;
+}
+.border-0 .ql-container {
+	border: none !important;
+}
+
+
+@if $enable-dark-mode {
+  @include color-mode(dark, true) {
+  	body {
+			& .ql-toolbar,
+			& .ql-container {
+  			--ql-dropdown-bg: #{ $dropdown-bg-dark };
+  		}
+  	}
+  }
+}

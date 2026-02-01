@@ -1,0 +1,16 @@
+<script>
+import { useAppOptionStore } from '@/stores/app-option';
+
+const appOption = useAppOptionStore();
+
+export default {
+  mounted() {
+    appOption.appBoxedLayout = true;
+    document.body.classList.add('app-with-bg');
+  },
+  beforeUnmount() {
+    appOption.appBoxedLayout = false;
+    document.body.classList.remove('app-with-bg');
+  }
+}
+</script>

@@ -1,0 +1,30 @@
+<card class="border-0 overflow-hidden rounded-0 rounded-top" style="height: 165px">
+  <img src="/assets/img/gallery/widget-cover-1.jpg" class="card-img rounded-0" alt="" />
+  <card-img-overlay class="text-white text-center bg-gray-800 bg-opacity-50">
+    <div class="mb-2">
+      <img src="/assets/img/user/user-5.jpg" alt="" width="80" class="rounded-circle" />
+    </div>
+    <div>
+      <div class="fw-600">Maurice Patterson</div>
+      <div class="fs-12px">Never give up</div>
+    </div>
+  </card-img-overlay>
+</card>
+<card class="border-top-0 rounded-0 rounded-bottom">
+  <card-body class="py-2 px-3">
+    <div class="row text-center">
+      <div class="col-4">
+        <div class="fw-600">415</div>
+        <div class="fs-12px">posts</div>
+      </div>
+      <div class="col-4">
+        <div class="fw-600">140k</div>
+        <div class="fs-12px">followers</div>
+      </div>
+      <div class="col-4">
+        <div class="fw-600">697</div>
+        <div class="fs-12px">following</div>
+      </div>
+    </div>
+  </card-body>
+</card>
