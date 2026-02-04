@@ -23,6 +23,12 @@ const router = createRouter({
           name: "home",
           component: () => import("../views/Home.vue"),
           meta: {titulo: "Inicio"}
+        },
+        {
+          path: "/usuario",
+          name: "Usuario",
+          component: () => import("../views/usuario/Principal.vue"),
+          meta: {titulo: "Usuario"}
         }
       ]
     }

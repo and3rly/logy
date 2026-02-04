@@ -5,13 +5,20 @@ export const useAppSidebarMenuStore = defineStore({
   state: () => {
     return [
     {
-			text: 'Navigation',
+			text: 'Menú',
 			is_header: true
 		},
-		{
-      'url': '/',
-      'icon': 'fa fa-home',
-      'text': 'Home'
+    {
+      url: "/mante/",
+      icon: "fa fa-cog",
+      text: "Mantenimiento",
+      children: [
+        {
+          url: "/usuario", 
+          text: "Usuario", 
+          icon: "fas fa-user" 
+        },
+      ]
     }
 	]}
 });

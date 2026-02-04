@@ -45,4 +45,5 @@ app.use(PerfectScrollbarPlugin);
 
 app.config.globalProperties.emitter = emitter;
 app.config.globalProperties.$http = api
+app.config.globalProperties.$baseUrl = "index.php"
 app.mount('#app');

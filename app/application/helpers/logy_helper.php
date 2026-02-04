@@ -48,7 +48,7 @@ if (!function_exists('var_session'))
 	function var_session($data=[])
 	{
 		$sesion = [
-			"usuario_id" => $data->id,
+			"id" => $data->id,
 			"nombre"     => $data->nombre,
 			"alias"      => $data->alias,
 			"empresa_id" => $data->empresa_id

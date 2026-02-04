@@ -34,7 +34,7 @@ class Token
 		}
 
 		try {
-			return JWT::decode($toke, $this->key, $this->encrypt);
+			return JWT::decode($token, new Key($this->key, $this->encrypt));
 		} catch (Exception $e) {
 			return false;
 		}

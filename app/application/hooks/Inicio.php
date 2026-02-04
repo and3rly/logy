@@ -22,8 +22,8 @@ class Inicio
 		} else {
 			$headers = $this->ci->input->request_headers();
 
-			if (isset($headers["Authorization"])) {
-				$token = str_replace("Bearer ", "", $headers["Authorization"]);
+			if (isset($headers["authorization"])) {
+				$token = str_replace("Bearer ", "", $headers["authorization"]);
 				$this->ci->load->library("token");
 
 				$tk = new Token();

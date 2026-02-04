@@ -36,6 +36,31 @@ class Usuario_model extends General_model {
     	return true;
 	}
 
+	public function _buscar($args=[])
+	{
+		if ($this->getPK()) {
+			$this->db->where("id <> ", $this->getPK());
+		}
+
+		$tmp = $this->db
+		->select("
+			a.id,
+		    a.nombre,
+		    a.alias,
+		    a.correo,
+		    a.telefono,
+		    a.foto,
+		    a.activo,
+		    a.empresa_id, 
+			b.nombre as nombre_empresa"
+		)
+		->join("empresa b","b.id = a.empresa_id")
+		->where("a.activo", 1)
+		->get("$this->_tabla a");
+
+		return verConsulta($tmp, $args);
+	}
+
 }
 
 /* End of file Usuario_model.php */
