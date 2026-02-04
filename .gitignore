@@ -1,62 +1,66 @@
-app/.DS_Store
+.DS_Store
 
-app/!application/cache/index.html
-app/!application/logs/index.html
-app/!application/*/.htaccess
+app/application/cache/*
+!app/application/cache/index.html
 
 app/application/logs/*
-app/application/cache/*
+!app/application/logs/index.html
+
 app/application/sesion_log
 app/application/config/database.php
 app/application/libraries/drive/cliente.json
 
+app/vendor/
 app/composer.lock
+
 app/tests/mocks/database/ci_test.sqlite
+app/tests/tests/
+app/tests/results/
 
 app/user_guide_src/build/*
 app/user_guide_src/cilexer/build/*
 app/user_guide_src/cilexer/dist/*
 app/user_guide_src/cilexer/pycilexer.egg-info/*
-app/vendor/
 
-/assets
 favicon.ico
 index.html
+/assets
 
-# IDE Files
-#-------------------------
+app/.idea/
 app/nbproject/
-app/.idea/*
 
-#Interfaz
-interfaz/.DS_Store
-interfaz/node_modules
-interfaz/dist
-
-# local env files
-interfaz/.env.local
-interfaz/.env.*.local
-
-# Log files
-interfaz/npm-debug.log*
-interfaz/yarn-debug.log*
-interfaz/yarn-error.log*
-interfaz/pnpm-debug.log*
-
-# Editor directories and files
-interfaz/.idea
-interfaz/.vscode
-interfaz/*.suo
-interfaz/*.ntvs*
-interfaz/*.njsproj
-interfaz/*.sln
-interfaz/*.sw?
-
-## Sublime Text cache files
 app/*.tmlanguage.cache
 app/*.tmPreferences.cache
 app/*.stTheme.cache
 app/*.sublime-workspace
 app/*.sublime-project
-app/tests/tests/
-app/tests/results/
+
+interfaz/node_modules/
+interfaz/dist/
+interfaz/dist-ssr/
+interfaz/coverage/
+
+interfaz/.env.local
+interfaz/.env.*.local
+interfaz/*.local
+
+interfaz/logs/
+interfaz/*.log
+interfaz/npm-debug.log*
+interfaz/yarn-debug.log*
+interfaz/yarn-error.log*
+interfaz/pnpm-debug.log*
+interfaz/lerna-debug.log*
+
+interfaz/cypress/videos/
+interfaz/cypress/screenshots/
+
+interfaz/.idea/
+interfaz/.vscode/*
+!interfaz/.vscode/extensions.json
+
+interfaz/*.suo
+interfaz/*.ntvs*
+interfaz/*.njsproj
+interfaz/*.sln
+interfaz/*.sw?
