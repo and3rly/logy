@@ -11,7 +11,15 @@
 
 				<div class="col-md-5 d-flex align-items-center justify-content-center">
 					<div class="login-card w-100">
-						<h4 class="fw-bold mb-5 text-center">Iniciar Sesión</h4>
+						<h4 class="fw-bold mb-4 text-center">Iniciar Sesión</h4>
+
+						<div 
+							v-if="mensaje != null" 
+							class="alert alert-danger d-flex align-items-center fw-bold" 
+							role="alert"
+						>
+							<i class="fas fa-triangle-exclamation me-2"></i> {{ mensaje }}
+						</div>
 
 						<form @submit.prevent="login">
 							<div class="mb-3">
@@ -44,8 +52,15 @@
 									type="submit"
 									class="btn btn-primary btn-lg" 
 									style="height: 45px;"
+									:disabled="btnIniciar"
 								>
-									Iniciar
+									<span 
+										v-if="btnIniciar"
+										class="spinner-border spinner-border-sm" 
+										aria-hidden="true"
+									></span>
+									
+									{{ !btnIniciar ? 'Iniciar' : 'Iniciando...'}}
 								</button>
 							</div>
 
@@ -68,17 +83,25 @@
 	export default {
 		name: "Login",
 		data: () => ({
-			form: {}
+			form: {},
+			btnIniciar: false,
+			mensaje: null
 		}),
 		methods: {
 			async login() {
-				let sesionStore = useSesionStore();
-				let exito = await sesionStore.iniciar_sesion(this.form)
+				this.btnIniciar = true
+				this.mensaje =  null;
 
-				console.log("HOLA MUNDO")
-				if (exito) {
-					this.$router.push({name: "/home"})
+				let sesion = useSesionStore()
+				let res = await sesion.iniciar_sesion(this.form)
+
+				if (sesion.isLoggedIn) {
+					this.$router.push({name: "home"})
+				} else {
+					this.mensaje = res.mensaje;
 				}
+
+				this.btnIniciar = false
 			}
 		}
 	}

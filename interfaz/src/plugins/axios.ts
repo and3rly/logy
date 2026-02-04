@@ -1,5 +1,7 @@
 import axios from "axios"
 
+import router from "@/router"
+
 const api = axios.create({
 	baseURL: import.meta.env.VITE_API_BASE_URL
 })
@@ -28,6 +30,11 @@ api.interceptors.response.use(res => {
 
 	switch (status) {
 		case 401:
+			localStorage.removeItem("token")
+      		localStorage.removeItem("usuario")
+
+      		router.push({ name: "Login" })
+
 			return Promise.reject({
 				estado: status,
 				mensaje: "Tu sesión ha expirado. Inicia sesión nuevamente."

@@ -2,9 +2,13 @@
 import { slideToggle } from '@/composables/slideToggle.js';
 import { useAppOptionStore } from '@/stores/app-option';
 import { RouterLink } from 'vue-router';
+import { useSesionStore } from "@/stores/sesion";
+
+import router from '@/router'
 
 const appOption = useAppOptionStore();
 const notificationData = [];
+const store = useSesionStore();
 
 function toggleAppSidebarMinify() {
 	if (!(appOption.appTopNav && appOption.appSidebarHide)) {
@@ -28,6 +32,15 @@ function checkForm(event) {
 	event.preventDefault();
 	this.$router.push({ path: '/extra/search' })
 }
+
+async function logout() {
+  const exito = await store.cerrar_sesion()
+
+  if (exito && !store.isLoggedIn) {
+    router.push({ name: "Login" })
+  }
+}
+
 </script>
 <template>
 	<div id="header" class="app-header">
@@ -110,7 +123,12 @@ function checkForm(event) {
 					<RouterLink to="/calendar" class="dropdown-item d-flex align-items-center">Calendar <i class="fa fa-calendar-alt fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
 					<RouterLink to="/settings" class="dropdown-item d-flex align-items-center">Setting <i class="fa fa-wrench fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
 					<div class="dropdown-divider"></div>
-					<RouterLink to="/page/login" class="dropdown-item d-flex align-items-center">Log Out <i class="fa fa-toggle-off fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
+					<div
+						class="dropdown-item d-flex align-items-center"
+						@click="logout"
+					>
+						Cerrar Sesión <i class="fa fa-toggle-off fa-fw ms-auto text-gray-400 fs-16px"></i>
+					</div>
 				</div>
 			</div>
 		</div>

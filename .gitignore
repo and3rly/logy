@@ -1,0 +1,62 @@
+app/.DS_Store
+
+app/!application/cache/index.html
+app/!application/logs/index.html
+app/!application/*/.htaccess
+
+app/application/logs/*
+app/application/cache/*
+app/application/sesion_log
+app/application/config/database.php
+app/application/libraries/drive/cliente.json
+
+app/composer.lock
+app/tests/mocks/database/ci_test.sqlite
+
+app/user_guide_src/build/*
+app/user_guide_src/cilexer/build/*
+app/user_guide_src/cilexer/dist/*
+app/user_guide_src/cilexer/pycilexer.egg-info/*
+app/vendor/
+
+/assets
+favicon.ico
+index.html
+
+# IDE Files
+#-------------------------
+app/nbproject/
+app/.idea/*
+
+#Interfaz
+interfaz/.DS_Store
+interfaz/node_modules
+interfaz/dist
+
+# local env files
+interfaz/.env.local
+interfaz/.env.*.local
+
+# Log files
+interfaz/npm-debug.log*
+interfaz/yarn-debug.log*
+interfaz/yarn-error.log*
+interfaz/pnpm-debug.log*
+
+# Editor directories and files
+interfaz/.idea
+interfaz/.vscode
+interfaz/*.suo
+interfaz/*.ntvs*
+interfaz/*.njsproj
+interfaz/*.sln
+interfaz/*.sw?
+
+## Sublime Text cache files
+app/*.tmlanguage.cache
+app/*.tmPreferences.cache
+app/*.stTheme.cache
+app/*.sublime-workspace
+app/*.sublime-project
+app/tests/tests/
+app/tests/results/
