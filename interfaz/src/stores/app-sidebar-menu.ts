@@ -23,6 +23,11 @@ export const useAppSidebarMenuStore = defineStore({
           text: "Sucursal", 
           icon: "fas fa-home" 
         },
+        {
+          url: "/marca", 
+          text: "Marca", 
+          icon: "fas fa-tag" 
+        },
       ]
     }
 	]}

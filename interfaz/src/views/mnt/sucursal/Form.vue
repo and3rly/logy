@@ -1,5 +1,8 @@
 <template>
 	<form @submit.prevent="guardar">
+		<div class="alert alert-light fw-bold">
+			Todos los campos marcados con <span class="text-danger">*</span> son obligatorios.
+		</div>
 		<div class="row g-2">
 			<div class="col-sm-6">
 				<label 
