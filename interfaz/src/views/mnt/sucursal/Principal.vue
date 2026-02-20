@@ -23,7 +23,7 @@
 		</div>
 	</div>
 
-	<div class="mb-3">
+	<div class="mb-2">
 		<div class="input-group mt-3">
 			<input 
 				type="text" 
