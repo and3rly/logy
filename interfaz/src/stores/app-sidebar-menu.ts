@@ -18,6 +18,11 @@ export const useAppSidebarMenuStore = defineStore({
           text: "Usuario", 
           icon: "fas fa-user" 
         },
+        {
+          url: "/sucursal", 
+          text: "Sucursal", 
+          icon: "fas fa-home" 
+        },
       ]
     }
 	]}

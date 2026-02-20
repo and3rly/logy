@@ -1,0 +1,1458 @@
+[
+  {
+    "title": "Alta Verapaz",
+    "iso": "GT-AV",
+    "mun": [
+      {
+        "code": "1601",
+        "name": "Chahal"
+      },
+      {
+        "code": "1602",
+        "name": "Chisec"
+      },
+      {
+        "code": "1603",
+        "name": "Cobán"
+      },
+      {
+        "code": "1604",
+        "name": "Fray Bartolomé de las Casas"
+      },
+      {
+        "code": "1605",
+        "name": "Lanquín"
+      },
+      {
+        "code": "1606",
+        "name": "Panzós"
+      },
+      {
+        "code": "1607",
+        "name": "Raxruha"
+      },
+      {
+        "code": "1608",
+        "name": "San Cristóbal Verapaz"
+      },
+      {
+        "code": "1609",
+        "name": "San Juan Chamelco"
+      },
+      {
+        "code": "1610",
+        "name": "San Pedro Carchá"
+      },
+      {
+        "code": "1611",
+        "name": "Santa Cruz Verapaz"
+      },
+      {
+        "code": "1612",
+        "name": "Senahú"
+      },
+      {
+        "code": "1613",
+        "name": "Tactic"
+      },
+      {
+        "code": "1614",
+        "name": "Tamahú"
+      },
+      {
+        "code": "1615",
+        "name": "Tucurú"
+      },
+      {
+        "code": "1616",
+        "name": "Santa María Cahabón"
+      },
+      {
+        "code": "1617",
+        "name": "Santa Catarina La Tinta"
+      }
+    ]
+  },
+  {
+    "title": "Baja Verapaz",
+    "iso": "GT-BV",
+    "mun": [
+      {
+        "code": "1501",
+        "name": "Cubulco"
+      },
+      {
+        "code": "1502",
+        "name": "Granados"
+      },
+      {
+        "code": "1503",
+        "name": "Purulhá"
+      },
+      {
+        "code": "1504",
+        "name": "Rabinal"
+      },
+      {
+        "code": "1505",
+        "name": "Salamá"
+      },
+      {
+        "code": "1506",
+        "name": "San Jerónimo"
+      },
+      {
+        "code": "1507",
+        "name": "San Miguel Chicaj"
+      },
+      {
+        "code": "1508",
+        "name": "Santa Cruz El Chol"
+      }
+    ]
+  },
+  {
+    "title": "Chimaltenango",
+    "iso": "GT-CM",
+    "mun": [
+      {
+        "code": "0401",
+        "name": "Acatenango"
+      },
+      {
+        "code": "0402",
+        "name": "Chimaltenango"
+      },
+      {
+        "code": "0403",
+        "name": "El Tejar"
+      },
+      {
+        "code": "0404",
+        "name": "Parramos"
+      },
+      {
+        "code": "0405",
+        "name": "Patzicía"
+      },
+      {
+        "code": "0406",
+        "name": "Patzún"
+      },
+      {
+        "code": "0407",
+        "name": "Pochuta"
+      },
+      {
+        "code": "0408",
+        "name": "San Andrés Itzapa"
+      },
+      {
+        "code": "0409",
+        "name": "San José Poaquil"
+      },
+      {
+        "code": "0410",
+        "name": "San Juan Comalapa"
+      },
+      {
+        "code": "0411",
+        "name": "San Martín Jilotepeque"
+      },
+      {
+        "code": "0412",
+        "name": "Santa Apolonia"
+      },
+      {
+        "code": "0413",
+        "name": "Santa Cruz Balanyá"
+      },
+      {
+        "code": "0414",
+        "name": "Tecpán Guatemala"
+      },
+      {
+        "code": "0415",
+        "name": "Yepocapa"
+      },
+      {
+        "code": "0416",
+        "name": "Zaragoza"
+      }
+    ]
+  },
+  {
+    "title": "Chiquimula",
+    "iso": "GT-CQ",
+    "mun": [
+      {
+        "code": "2001",
+        "name": "Camotán"
+      },
+      {
+        "code": "2002",
+        "name": "Chiquimula"
+      },
+      {
+        "code": "2003",
+        "name": "Concepción Las Minas"
+      },
+      {
+        "code": "2004",
+        "name": "Esquipulas"
+      },
+      {
+        "code": "2005",
+        "name": "Ipala"
+      },
+      {
+        "code": "2006",
+        "name": "Jocotán"
+      },
+      {
+        "code": "2007",
+        "name": "Olopa"
+      },
+      {
+        "code": "2008",
+        "name": "Quezaltepeque"
+      },
+      {
+        "code": "2009",
+        "name": "San Jacinto"
+      },
+      {
+        "code": "2010",
+        "name": "San José La Arada"
+      },
+      {
+        "code": "2011",
+        "name": "San Juan Ermita"
+      }
+    ]
+  },
+  {
+    "title": "El Progreso",
+    "iso": "GT-PR",
+    "mun": [
+      {
+        "code": "0201",
+        "name": "El Jícaro"
+      },
+      {
+        "code": "0202",
+        "name": "Guastatoya"
+      },
+      {
+        "code": "0203",
+        "name": "Morazán"
+      },
+      {
+        "code": "0204",
+        "name": "San Agustín Acasaguastlán"
+      },
+      {
+        "code": "0205",
+        "name": "San Antonio La Paz"
+      },
+      {
+        "code": "0206",
+        "name": "San Cristóbal Acasaguastlán"
+      },
+      {
+        "code": "0207",
+        "name": "Sanarate"
+      }
+    ]
+  },
+  {
+    "title": "Escuintla",
+    "iso": "GT-ES",
+    "mun": [
+      {
+        "code": "0501",
+        "name": "Escuintla"
+      },
+      {
+        "code": "0502",
+        "name": "Guanagazapa"
+      },
+      {
+        "code": "0503",
+        "name": "Iztapa"
+      },
+      {
+        "code": "0504",
+        "name": "La Democracia"
+      },
+      {
+        "code": "0505",
+        "name": "La Gomera"
+      },
+      {
+        "code": "0506",
+        "name": "Masagua"
+      },
+      {
+        "code": "0507",
+        "name": "Nueva Concepción"
+      },
+      {
+        "code": "0508",
+        "name": "Palín"
+      },
+      {
+        "code": "0509",
+        "name": "San José"
+      },
+      {
+        "code": "0510",
+        "name": "San Vicente Pacaya"
+      },
+      {
+        "code": "0511",
+        "name": "Santa Lucía Cotzumalguapa"
+      },
+      {
+        "code": "0512",
+        "name": "Siquinalá"
+      },
+      {
+        "code": "0513",
+        "name": "Tiquisate"
+      }
+    ]
+  },
+  {
+    "title": "Guatemala",
+    "iso": "GT-GU",
+    "mun": [
+      {
+        "code": "0101",
+        "name": "Amatitlán"
+      },
+      {
+        "code": "0102",
+        "name": "Chinautla"
+      },
+      {
+        "code": "0103",
+        "name": "Chuarrancho"
+      },
+      {
+        "code": "0104",
+        "name": "Fraijanes"
+      },
+      {
+        "code": "0105",
+        "name": "Guatemala City"
+      },
+      {
+        "code": "0106",
+        "name": "Mixco"
+      },
+      {
+        "code": "0107",
+        "name": "Palencia"
+      },
+      {
+        "code": "0108",
+        "name": "Petapa"
+      },
+      {
+        "code": "0109",
+        "name": "San José del Golfo"
+      },
+      {
+        "code": "0110",
+        "name": "San José Pinula"
+      },
+      {
+        "code": "0111",
+        "name": "San Juan Sacatepéquez"
+      },
+      {
+        "code": "0112",
+        "name": "San Pedro Ayampuc"
+      },
+      {
+        "code": "0113",
+        "name": "San Pedro Sacatepéquez"
+      },
+      {
+        "code": "0114",
+        "name": "San Raymundo"
+      },
+      {
+        "code": "0115",
+        "name": "Santa Catarina Pinula"
+      },
+      {
+        "code": "0116",
+        "name": "Villa Canales"
+      }
+    ]
+  },
+  {
+    "title": "Huehuetenango",
+    "iso": "GT-HU",
+    "mun": [
+      {
+        "code": "1301",
+        "name": "Aguacatán"
+      },
+      {
+        "code": "1302",
+        "name": "Chiantla"
+      },
+      {
+        "code": "1303",
+        "name": "Colotenango"
+      },
+      {
+        "code": "1304",
+        "name": "Concepción Huista"
+      },
+      {
+        "code": "1305",
+        "name": "Cuilco"
+      },
+      {
+        "code": "1306",
+        "name": "Huehuetenango"
+      },
+      {
+        "code": "1307",
+        "name": "Ixtahuacán"
+      },
+      {
+        "code": "1308",
+        "name": "Jacaltenango"
+      },
+      {
+        "code": "1309",
+        "name": "La Democracia"
+      },
+      {
+        "code": "1310",
+        "name": "La Libertad"
+      },
+      {
+        "code": "1311",
+        "name": "Malacatancito"
+      },
+      {
+        "code": "1312",
+        "name": "Nentón"
+      },
+      {
+        "code": "1313",
+        "name": "San Antonio Huista"
+      },
+      {
+        "code": "1314",
+        "name": "San Gaspar Ixchil"
+      },
+      {
+        "code": "1315",
+        "name": "San Juan Atitán"
+      },
+      {
+        "code": "1316",
+        "name": "San Juan Ixcoy"
+      },
+      {
+        "code": "1317",
+        "name": "San Mateo Ixtatán"
+      },
+      {
+        "code": "1318",
+        "name": "San Miguel Acatán"
+      },
+      {
+        "code": "1319",
+        "name": "San Pedro Necta"
+      },
+      {
+        "code": "1320",
+        "name": "San Rafael La Independencia"
+      },
+      {
+        "code": "1321",
+        "name": "San Rafael Petzal"
+      },
+      {
+        "code": "1322",
+        "name": "San Sebastián Coatán"
+      },
+      {
+        "code": "1323",
+        "name": "San Sebastián Huehuetenango"
+      },
+      {
+        "code": "1324",
+        "name": "Santa Ana Huista"
+      },
+      {
+        "code": "1325",
+        "name": "Santa Bárbara"
+      },
+      {
+        "code": "1326",
+        "name": "Santa Cruz Barillas"
+      },
+      {
+        "code": "1327",
+        "name": "Santa Eulalia"
+      },
+      {
+        "code": "1328",
+        "name": "Santiago Chimaltenango"
+      },
+      {
+        "code": "1329",
+        "name": "Soloma"
+      },
+      {
+        "code": "1330",
+        "name": "Tectitán"
+      },
+      {
+        "code": "1331",
+        "name": "Todos Santos Cuchumatan"
+      }
+    ]
+  },
+  {
+    "title": "Izabal",
+    "iso": "GT-IZ",
+    "mun": [
+      {
+        "code": "1801",
+        "name": "El Estor"
+      },
+      {
+        "code": "1802",
+        "name": "Livingston"
+      },
+      {
+        "code": "1803",
+        "name": "Los Amates"
+      },
+      {
+        "code": "1804",
+        "name": "Morales"
+      },
+      {
+        "code": "1805",
+        "name": "Puerto Barrios"
+      }
+    ]
+  },
+  {
+    "title": "Jalapa",
+    "iso": "GT-JA",
+    "mun": [
+      {
+        "code": "2101",
+        "name": "Jalapa"
+      },
+      {
+        "code": "2102",
+        "name": "Mataquescuintla"
+      },
+      {
+        "code": "2103",
+        "name": "Monjas"
+      },
+      {
+        "code": "2104",
+        "name": "San Carlos Alzatate"
+      },
+      {
+        "code": "2105",
+        "name": "San Luis Jilotepeque"
+      },
+      {
+        "code": "2106",
+        "name": "San Manuel Chaparrón"
+      },
+      {
+        "code": "2107",
+        "name": "San Pedro Pinula"
+      }
+    ]
+  },
+  {
+    "title": "Jutiapa",
+    "iso": "GT-JU",
+    "mun": [
+      {
+        "code": "2201",
+        "name": "Agua Blanca"
+      },
+      {
+        "code": "2202",
+        "name": "Asunción Mita"
+      },
+      {
+        "code": "2203",
+        "name": "Atescatempa"
+      },
+      {
+        "code": "2204",
+        "name": "Comapa"
+      },
+      {
+        "code": "2205",
+        "name": "Conguaco"
+      },
+      {
+        "code": "2206",
+        "name": "El Adelanto"
+      },
+      {
+        "code": "2207",
+        "name": "El Progreso"
+      },
+      {
+        "code": "2208",
+        "name": "Jalpatagua"
+      },
+      {
+        "code": "2209",
+        "name": "Jerez"
+      },
+      {
+        "code": "2210",
+        "name": "Jutiapa"
+      },
+      {
+        "code": "2211",
+        "name": "Moyuta"
+      },
+      {
+        "code": "2212",
+        "name": "Pasaco"
+      },
+      {
+        "code": "2213",
+        "name": "Quezada"
+      },
+      {
+        "code": "2214",
+        "name": "San José Acatempa"
+      },
+      {
+        "code": "2215",
+        "name": "Santa Catarina Mita"
+      },
+      {
+        "code": "2216",
+        "name": "Yupiltepeque"
+      },
+      {
+        "code": "2217",
+        "name": "Zapotitlán"
+      }
+    ]
+  },
+  {
+    "title": "Petén",
+    "iso": "GT-PE",
+    "mun": [
+      {
+        "code": "1701",
+        "name": "Dolores"
+      },
+      {
+        "code": "1702",
+        "name": "Flores"
+      },
+      {
+        "code": "1703",
+        "name": "La Libertad"
+      },
+      {
+        "code": "1704",
+        "name": "Melchor de Mencos"
+      },
+      {
+        "code": "1705",
+        "name": "Poptún"
+      },
+      {
+        "code": "1706",
+        "name": "San Andrés"
+      },
+      {
+        "code": "1707",
+        "name": "San Benito"
+      },
+      {
+        "code": "1708",
+        "name": "San Francisco"
+      },
+      {
+        "code": "1709",
+        "name": "San José"
+      },
+      {
+        "code": "1710",
+        "name": "San Luis"
+      },
+      {
+        "code": "1711",
+        "name": "Santa Ana"
+      },
+      {
+        "code": "1712",
+        "name": "Sayaxché"
+      },
+      {
+        "code": "1713",
+        "name": "Las Cruces"
+      }
+    ]
+  },
+  {
+    "title": "Quetzaltenango",
+    "iso": "GT-QZ",
+    "mun": [
+      {
+        "code": "0901",
+        "name": "Almolonga"
+      },
+      {
+        "code": "0902",
+        "name": "Cabricán"
+      },
+      {
+        "code": "0903",
+        "name": "Cajolá"
+      },
+      {
+        "code": "0904",
+        "name": "Cantel"
+      },
+      {
+        "code": "0905",
+        "name": "Coatepeque"
+      },
+      {
+        "code": "0906",
+        "name": "Colomba"
+      },
+      {
+        "code": "0907",
+        "name": "Concepción Chiquirichapa"
+      },
+      {
+        "code": "0908",
+        "name": "El Palmar"
+      },
+      {
+        "code": "0909",
+        "name": "Flores Costa Cuca"
+      },
+      {
+        "code": "0910",
+        "name": "Génova"
+      },
+      {
+        "code": "0911",
+        "name": "Huitán"
+      },
+      {
+        "code": "0912",
+        "name": "La Esperanza"
+      },
+      {
+        "code": "0913",
+        "name": "Olintepeque"
+      },
+      {
+        "code": "0914",
+        "name": "Ostuncalco"
+      },
+      {
+        "code": "0915",
+        "name": "Palestina de Los Altos"
+      },
+      {
+        "code": "0916",
+        "name": "Quetzaltenango"
+      },
+      {
+        "code": "0917",
+        "name": "Salcajá"
+      },
+      {
+        "code": "0918",
+        "name": "San Carlos Sija"
+      },
+      {
+        "code": "0919",
+        "name": "San Francisco La Unión"
+      },
+      {
+        "code": "0920",
+        "name": "San Martín Sacatepéquez"
+      },
+      {
+        "code": "0921",
+        "name": "San Mateo"
+      },
+      {
+        "code": "0922",
+        "name": "San Miguel Sigüilá"
+      },
+      {
+        "code": "0923",
+        "name": "Sibilia"
+      },
+      {
+        "code": "0924",
+        "name": "Zunil"
+      }
+    ]
+  },
+  {
+    "title": "Quiché",
+    "iso": "GT-QI",
+    "mun": [
+      {
+        "code": "1401",
+        "name": "Canillá"
+      },
+      {
+        "code": "1402",
+        "name": "Chajul"
+      },
+      {
+        "code": "1403",
+        "name": "Chicamán"
+      },
+      {
+        "code": "1404",
+        "name": "Chiché"
+      },
+      {
+        "code": "1405",
+        "name": "Chichicastenango"
+      },
+      {
+        "code": "1406",
+        "name": "Chinique"
+      },
+      {
+        "code": "1407",
+        "name": "Cunén"
+      },
+      {
+        "code": "1408",
+        "name": "Ixcán"
+      },
+      {
+        "code": "1409",
+        "name": "Joyabaj"
+      },
+      {
+        "code": "1410",
+        "name": "Nebaj"
+      },
+      {
+        "code": "1411",
+        "name": "Pachalum"
+      },
+      {
+        "code": "1412",
+        "name": "Patzité"
+      },
+      {
+        "code": "1413",
+        "name": "Sacapulas"
+      },
+      {
+        "code": "1414",
+        "name": "San Andrés Sajcabajá"
+      },
+      {
+        "code": "1415",
+        "name": "San Antonio Ilotenango"
+      },
+      {
+        "code": "1416",
+        "name": "San Bartolomé Jocotenango"
+      },
+      {
+        "code": "1417",
+        "name": "San Juan Cotzal"
+      },
+      {
+        "code": "1418",
+        "name": "San Pedro Jocopilas"
+      },
+      {
+        "code": "1419",
+        "name": "Santa Cruz del Quiché"
+      },
+      {
+        "code": "1420",
+        "name": "Uspantán"
+      },
+      {
+        "code": "1421",
+        "name": "Zacualpa"
+      }
+    ]
+  },
+  {
+    "title": "Retalhuleu",
+    "iso": "GT-RE",
+    "mun": [
+      {
+        "code": "1101",
+        "name": "Champerico"
+      },
+      {
+        "code": "1102",
+        "name": "El Asintal"
+      },
+      {
+        "code": "1103",
+        "name": "Nuevo San Carlos"
+      },
+      {
+        "code": "1104",
+        "name": "Retalhuleu"
+      },
+      {
+        "code": "1105",
+        "name": "San Andrés Villa Seca"
+      },
+      {
+        "code": "1106",
+        "name": "San Felipe"
+      },
+      {
+        "code": "1107",
+        "name": "San Martín Zapotitlán"
+      },
+      {
+        "code": "1108",
+        "name": "San Sebastián"
+      },
+      {
+        "code": "1109",
+        "name": "Santa Cruz Muluá"
+      }
+    ]
+  },
+  {
+    "title": "Sacatepéquez",
+    "iso": "GT-SC",
+    "mun": [
+      {
+        "code": "0301",
+        "name": "Alotenango"
+      },
+      {
+        "code": "0302",
+        "name": "Antigua"
+      },
+      {
+        "code": "0303",
+        "name": "Ciudad Vieja"
+      },
+      {
+        "code": "0304",
+        "name": "Jocotenango"
+      },
+      {
+        "code": "0305",
+        "name": "Magdalena Milpas Altas"
+      },
+      {
+        "code": "0306",
+        "name": "Pastores"
+      },
+      {
+        "code": "0307",
+        "name": "San Antonio Aguas Calientes"
+      },
+      {
+        "code": "0308",
+        "name": "San Bartolomé Milpas Altas"
+      },
+      {
+        "code": "0309",
+        "name": "San Lucas Sacatepéquez"
+      },
+      {
+        "code": "0310",
+        "name": "San Miguel Dueñas"
+      },
+      {
+        "code": "0311",
+        "name": "Santa Catarina Barahona"
+      },
+      {
+        "code": "0312",
+        "name": "Santa Lucía Milpas Altas"
+      },
+      {
+        "code": "0313",
+        "name": "Santa María de Jesús"
+      },
+      {
+        "code": "0314",
+        "name": "Santiago Sacatepéquez"
+      },
+      {
+        "code": "0315",
+        "name": "Santo Domingo Xenacoj"
+      },
+      {
+        "code": "0316",
+        "name": "Sumpango"
+      }
+    ]
+  },
+  {
+    "title": "San Marcos",
+    "iso": "GT-SM",
+    "mun": [
+      {
+        "code": "1201",
+        "name": "Ayutla"
+      },
+      {
+        "code": "1202",
+        "name": "Catarina"
+      },
+      {
+        "code": "1203",
+        "name": "Comitancillo"
+      },
+      {
+        "code": "1204",
+        "name": "Concepción Tutuapa"
+      },
+      {
+        "code": "1205",
+        "name": "El Quetzal"
+      },
+      {
+        "code": "1206",
+        "name": "El Rodeo"
+      },
+      {
+        "code": "1207",
+        "name": "El Tumbador"
+      },
+      {
+        "code": "1208",
+        "name": "Esquipulas Palo Gordo"
+      },
+      {
+        "code": "1209",
+        "name": "Ixchiguan"
+      },
+      {
+        "code": "1210",
+        "name": "La Reforma"
+      },
+      {
+        "code": "1211",
+        "name": "Malacatán"
+      },
+      {
+        "code": "1212",
+        "name": "Nuevo Progreso"
+      },
+      {
+        "code": "1213",
+        "name": "Ocos"
+      },
+      {
+        "code": "1214",
+        "name": "Pajapita"
+      },
+      {
+        "code": "1215",
+        "name": "Río Blanco"
+      },
+      {
+        "code": "1216",
+        "name": "San Antonio Sacatepéquez"
+      },
+      {
+        "code": "1217",
+        "name": "San Cristóbal Cucho"
+      },
+      {
+        "code": "1218",
+        "name": "San José Ojetenam"
+      },
+      {
+        "code": "1219",
+        "name": "San Lorenzo"
+      },
+      {
+        "code": "1220",
+        "name": "San Marcos"
+      },
+      {
+        "code": "1221",
+        "name": "San Miguel Ixtahuacán"
+      },
+      {
+        "code": "1222",
+        "name": "San Pablo"
+      },
+      {
+        "code": "1223",
+        "name": "San Pedro Sacatepéquez"
+      },
+      {
+        "code": "1224",
+        "name": "San Rafael Pie de La Cuesta"
+      },
+      {
+        "code": "1225",
+        "name": "San Sibinal"
+      },
+      {
+        "code": "1226",
+        "name": "Sipacapa"
+      },
+      {
+        "code": "1227",
+        "name": "Tacaná"
+      },
+      {
+        "code": "1228",
+        "name": "Tajumulco"
+      },
+      {
+        "code": "1229",
+        "name": "Tejutla"
+      }
+    ]
+  },
+  {
+    "title": "Santa Rosa",
+    "iso": "GT-SO",
+    "mun": [
+      {
+        "code": "0601",
+        "name": "Barberena"
+      },
+      {
+        "code": "0602",
+        "name": "Casillas"
+      },
+      {
+        "code": "0603",
+        "name": "Chiquimulilla"
+      },
+      {
+        "code": "0604",
+        "name": "Cuilapa"
+      },
+      {
+        "code": "0605",
+        "name": "Guazacapán"
+      },
+      {
+        "code": "0606",
+        "name": "Nueva Santa Rosa"
+      },
+      {
+        "code": "0607",
+        "name": "Oratorio"
+      },
+      {
+        "code": "0608",
+        "name": "Pueblo Nuevo Viñas"
+      },
+      {
+        "code": "0609",
+        "name": "San Juan Tecuaco"
+      },
+      {
+        "code": "0610",
+        "name": "San Rafael Las Flores"
+      },
+      {
+        "code": "0611",
+        "name": "Santa Cruz Naranjo"
+      },
+      {
+        "code": "0612",
+        "name": "Santa María Ixhuatán"
+      },
+      {
+        "code": "0613",
+        "name": "Santa Rosa de Lima"
+      },
+      {
+        "code": "0614",
+        "name": "Taxisco"
+      }
+    ]
+  },
+  {
+    "title": "Sololá",
+    "iso": "GT-SL",
+    "mun": [
+      {
+        "code": "0701",
+        "name": "Concepción"
+      },
+      {
+        "code": "0702",
+        "name": "Nahualá"
+      },
+      {
+        "code": "0703",
+        "name": "Panajachel"
+      },
+      {
+        "code": "0704",
+        "name": "San Andrés Semetabaj"
+      },
+      {
+        "code": "0705",
+        "name": "San Antonio Palopó"
+      },
+      {
+        "code": "0706",
+        "name": "San José Chacaya"
+      },
+      {
+        "code": "0707",
+        "name": "San Juan La Laguna"
+      },
+      {
+        "code": "0708",
+        "name": "San Lucas Tolimán"
+      },
+      {
+        "code": "0709",
+        "name": "San Marcos La Laguna"
+      },
+      {
+        "code": "0710",
+        "name": "San Pablo La Laguna"
+      },
+      {
+        "code": "0711",
+        "name": "San Pedro La Laguna"
+      },
+      {
+        "code": "0712",
+        "name": "Santa Catarina Ixtahuacan"
+      },
+      {
+        "code": "0713",
+        "name": "Santa Catarina Palopó"
+      },
+      {
+        "code": "0714",
+        "name": "Santa Clara La Laguna"
+      },
+      {
+        "code": "0715",
+        "name": "Santa Cruz La Laguna"
+      },
+      {
+        "code": "0716",
+        "name": "Santa Lucía Utatlán"
+      },
+      {
+        "code": "0717",
+        "name": "Santa María Visitación"
+      },
+      {
+        "code": "0718",
+        "name": "Santiago Atitlán"
+      },
+      {
+        "code": "0719",
+        "name": "Sololá"
+      }
+    ]
+  },
+  {
+    "title": "Suchitepéquez",
+    "iso": "GT-SZ",
+    "mun": [
+      {
+        "code": "1001",
+        "name": "Chicacao"
+      },
+      {
+        "code": "1002",
+        "name": "Cuyotenango"
+      },
+      {
+        "code": "1003",
+        "name": "Mazatenango"
+      },
+      {
+        "code": "1004",
+        "name": "Patulul"
+      },
+      {
+        "code": "1005",
+        "name": "Pueblo Nuevo"
+      },
+      {
+        "code": "1006",
+        "name": "Río Bravo"
+      },
+      {
+        "code": "1007",
+        "name": "Samayac"
+      },
+      {
+        "code": "1008",
+        "name": "San Antonio Suchitepéquez"
+      },
+      {
+        "code": "1009",
+        "name": "San Bernardino"
+      },
+      {
+        "code": "1010",
+        "name": "San Francisco Zapotitlán"
+      },
+      {
+        "code": "1011",
+        "name": "San Gabriel"
+      },
+      {
+        "code": "1012",
+        "name": "San José El Idolo"
+      },
+      {
+        "code": "1013",
+        "name": "San Juan Bautista"
+      },
+      {
+        "code": "1014",
+        "name": "San Lorenzo"
+      },
+      {
+        "code": "1015",
+        "name": "San Miguel Panán"
+      },
+      {
+        "code": "1016",
+        "name": "San Pablo Jocopilas"
+      },
+      {
+        "code": "1017",
+        "name": "Santa Bárbara"
+      },
+      {
+        "code": "1018",
+        "name": "Santo Domingo Suchitepequez"
+      },
+      {
+        "code": "1019",
+        "name": "Santo Tomas La Unión"
+      },
+      {
+        "code": "1020",
+        "name": "Zunilito"
+      }
+    ]
+  },
+  {
+    "title": "Totonicapán",
+    "iso": "GT-TC",
+    "mun": [
+      {
+        "code": "0801",
+        "name": "Momostenango"
+      },
+      {
+        "code": "0802",
+        "name": "San Andrés Xecul"
+      },
+      {
+        "code": "0803",
+        "name": "San Bartolo"
+      },
+      {
+        "code": "0804",
+        "name": "San Cristóbal Totonicapán"
+      },
+      {
+        "code": "0805",
+        "name": "San Francisco El Alto"
+      },
+      {
+        "code": "0806",
+        "name": "Santa Lucía La Reforma"
+      },
+      {
+        "code": "0807",
+        "name": "Santa María Chiquimula"
+      },
+      {
+        "code": "0808",
+        "name": "Totonicapán"
+      }
+    ]
+  },
+  {
+    "title": "Zacapa",
+    "iso": "GT-ZA",
+    "mun": [
+      {
+        "code": "1901",
+        "name": "Cabañas"
+      },
+      {
+        "code": "1902",
+        "name": "Estanzuela"
+      },
+      {
+        "code": "1903",
+        "name": "Gualán"
+      },
+      {
+        "code": "1904",
+        "name": "Huité"
+      },
+      {
+        "code": "1905",
+        "name": "La Unión"
+      },
+      {
+        "code": "1906",
+        "name": "Río Hondo"
+      },
+      {
+        "code": "1907",
+        "name": "San Diego"
+      },
+      {
+        "code": "1908",
+        "name": "Teculután"
+      },
+      {
+        "code": "1909",
+        "name": "Usumatlán"
+      },
+      {
+        "code": "1910",
+        "name": "Zacapa"
+      }
+    ]
+  }
+]

@@ -125,7 +125,7 @@ class General_model extends CI_Model {
 
 		if ($this->_pk === null) {
 			if (property_exists($this, 'usuario_id') && empty($this->usuario_id)) {
-				$this->usuario_id = $this->usr["usuario_id"];
+				$this->usuario_id = $this->usr["id"];
 			}
 
 			if (property_exists($this, 'empresa_id') && empty($this->empresa_id)) {

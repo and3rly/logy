@@ -10,6 +10,24 @@ class Catalogo_model extends CI_Model {
 
 		return verConsulta($tmp, $args);
 	}
+
+	public function verMunicipios($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("municipio");
+
+		return verConsulta($tmp, $args);
+	}
+
+	public function verDepartamentos($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("departamento");
+
+		return verConsulta($tmp, $args);
+	}
 }
 
 /* End of file Catalogo_model.php */
