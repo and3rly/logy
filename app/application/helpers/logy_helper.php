@@ -62,7 +62,7 @@ if (!function_exists('outputJson')) {
 	function outputJson ($data=[])
 	{
 		header('Content-type: application/json');
-	    echo json_encode($data);	
+		echo json_encode($data);	
 	}
 }
 
@@ -90,75 +90,75 @@ if (!function_exists('get_tiempo_token')) {
 
 if (!function_exists('getRealIP')) {
 	function getRealIP() {
-	    if (!empty($_SERVER['HTTP_CLIENT_IP']))
-	        return $_SERVER['HTTP_CLIENT_IP'];
-	       
-	    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-	        return $_SERVER['HTTP_X_FORWARDED_FOR'];
+		if (!empty($_SERVER['HTTP_CLIENT_IP']))
+			return $_SERVER['HTTP_CLIENT_IP'];
+		   
+		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+			return $_SERVER['HTTP_X_FORWARDED_FOR'];
 	   
-	    return $_SERVER['REMOTE_ADDR'];
+		return $_SERVER['REMOTE_ADDR'];
 	}
 }
 
 if (!function_exists('eliminaAcento'))
 {
 	function eliminarAcento($text)
-    {
-        $text = htmlentities($text, ENT_QUOTES, 'UTF-8');
-        $text = strtolower($text);
-        $patron = array (
-            // Espacios, puntos y comas por guion
-            //'/[\., ]+/' => ' ',
+	{
+		$text = htmlentities($text, ENT_QUOTES, 'UTF-8');
+		$text = strtolower($text);
+		$patron = array (
+			// Espacios, puntos y comas por guion
+			//'/[\., ]+/' => ' ',
  
-            // Vocales
-            '/\+/' => '',
-            '/&agrave;/' => 'a',
-            '/&egrave;/' => 'e',
-            '/&igrave;/' => 'i',
-            '/&ograve;/' => 'o',
-            '/&ugrave;/' => 'u',
+			// Vocales
+			'/\+/' => '',
+			'/&agrave;/' => 'a',
+			'/&egrave;/' => 'e',
+			'/&igrave;/' => 'i',
+			'/&ograve;/' => 'o',
+			'/&ugrave;/' => 'u',
  
-            '/&aacute;/' => 'a',
-            '/&eacute;/' => 'e',
-            '/&iacute;/' => 'i',
-            '/&oacute;/' => 'o',
-            '/&uacute;/' => 'u',
+			'/&aacute;/' => 'a',
+			'/&eacute;/' => 'e',
+			'/&iacute;/' => 'i',
+			'/&oacute;/' => 'o',
+			'/&uacute;/' => 'u',
  
-            '/&acirc;/' => 'a',
-            '/&ecirc;/' => 'e',
-            '/&icirc;/' => 'i',
-            '/&ocirc;/' => 'o',
-            '/&ucirc;/' => 'u',
+			'/&acirc;/' => 'a',
+			'/&ecirc;/' => 'e',
+			'/&icirc;/' => 'i',
+			'/&ocirc;/' => 'o',
+			'/&ucirc;/' => 'u',
  
-            '/&atilde;/' => 'a',
-            '/&etilde;/' => 'e',
-            '/&itilde;/' => 'i',
-            '/&otilde;/' => 'o',
-            '/&utilde;/' => 'u',
+			'/&atilde;/' => 'a',
+			'/&etilde;/' => 'e',
+			'/&itilde;/' => 'i',
+			'/&otilde;/' => 'o',
+			'/&utilde;/' => 'u',
  
-            '/&auml;/' => 'a',
-            '/&euml;/' => 'e',
-            '/&iuml;/' => 'i',
-            '/&ouml;/' => 'o',
-            '/&uuml;/' => 'u',
+			'/&auml;/' => 'a',
+			'/&euml;/' => 'e',
+			'/&iuml;/' => 'i',
+			'/&ouml;/' => 'o',
+			'/&uuml;/' => 'u',
  
-            '/&auml;/' => 'a',
-            '/&euml;/' => 'e',
-            '/&iuml;/' => 'i',
-            '/&ouml;/' => 'o',
-            '/&uuml;/' => 'u',
+			'/&auml;/' => 'a',
+			'/&euml;/' => 'e',
+			'/&iuml;/' => 'i',
+			'/&ouml;/' => 'o',
+			'/&uuml;/' => 'u',
  
-            // Otras letras y caracteres especiales
-            '/&aring;/' => 'a',
-            '/&ntilde;/' => 'n',
+			// Otras letras y caracteres especiales
+			'/&aring;/' => 'a',
+			'/&ntilde;/' => 'n',
  
-            // Agregar aqui mas caracteres si es necesario
+			// Agregar aqui mas caracteres si es necesario
  
-        );
+		);
  
-        $text = preg_replace(array_keys($patron),array_values($patron),$text);
-        return $text;
-    }
+		$text = preg_replace(array_keys($patron),array_values($patron),$text);
+		return $text;
+	}
 }
 
 if (!function_exists('script_tag')) {
@@ -186,11 +186,11 @@ if (!function_exists('censurar_mail')) {
 	function censurar_mail($mail='')
 	{
 		if ($mail) {
-		    $em   = explode("@",$mail);
-		    $name = implode('@', array_slice($em, 0, count($em)-1));
-		    $len  = floor(strlen($name)/2);
+			$em   = explode("@",$mail);
+			$name = implode('@', array_slice($em, 0, count($em)-1));
+			$len  = floor(strlen($name)/2);
 
-		    return substr($name,0, $len) . str_repeat('*', $len) . "@" . end($em);   
+			return substr($name,0, $len) . str_repeat('*', $len) . "@" . end($em);   
 		}
 
 		return false;
@@ -229,11 +229,11 @@ if (!function_exists('verLetra')) {
 		$letra  = chr(65 + $numero);
 		$num2   = intval($num / 26);
 
-	    if ($num2 > 0) {
-	        return verLetra($num2 - 1) . $letra;
-	    } else {
-	        return $letra;
-	    }
+		if ($num2 > 0) {
+			return verLetra($num2 - 1) . $letra;
+		} else {
+			return $letra;
+		}
 	}
 }
 

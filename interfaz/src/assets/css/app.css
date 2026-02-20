@@ -1,0 +1,6 @@
+input.form-control:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
+  opacity: 1;
+  cursor: not-allowed;
+}

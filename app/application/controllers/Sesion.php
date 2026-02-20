@@ -32,9 +32,7 @@ class Sesion extends CI_Controller {
 					$us->id = $us->getPK();
 
 					$usuario = var_session($us);
-					$this->session->set_userdata([
-						"usuario" => $usuario
-					]);
+					$this->session->set_userdata($usuario);
 					
 					$tk = new Token();
 					$token = $tk->set_token($usuario);
