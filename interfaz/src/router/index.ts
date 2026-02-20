@@ -41,6 +41,12 @@ const router = createRouter({
           name: "Marca",
           component: () => import("../views/mnt/marca/Principal.vue"),
           meta: {titulo: "Marca"}
+        },
+        {
+          path: "/unidad_medida",
+          name: "UnidadMedida",
+          component: () => import("../views/mnt/um/Principal.vue"),
+          meta: {titulo: "Unidad de medida"}
         }
       ]
     }

@@ -28,6 +28,11 @@ export const useAppSidebarMenuStore = defineStore({
           text: "Marca", 
           icon: "fas fa-tag" 
         },
+        {
+          url: "/unidad_medida", 
+          text: "Unidad Medida", 
+          icon: "fas fa-scale-balanced" 
+        }
       ]
     }
 	]}
