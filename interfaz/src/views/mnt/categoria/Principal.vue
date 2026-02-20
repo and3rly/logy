@@ -6,12 +6,12 @@
 					<a href="#">MANTENIMIENTO</a>
 				</li>
 				<li class="breadcrumb-item active">
-					UNIDAD DE MEDIDA
+					CATEGORIAS
 				</li>
 			</ul>
 
 			<h1 class="page-header mb-0">
-				Unidad de medida
+				Categorias
 			</h1>
 		</div>
 
@@ -54,8 +54,8 @@
 					<thead class="table-primary">
 						<tr>
 							<th class="text-center" width="100">#</th>
-							<th>Código</th>
 							<th>Nombre</th>
+							<th class="text-center">Etiqueta</th>
 							<th class="text-center">Estado</th>
 						</tr>
 					</thead>
@@ -81,9 +81,15 @@
 							:key="idx"
 						>
 							<td class="text-center fw-bold">{{ idx + 1 }}</td>
-							<td>{{ i.codigo }}</td>
 							<td class="fw-bold">
 								<a href="javascript:;" class="text-decoration-none" @click="frmUm(i)">{{ i.nombre }}</a>
+							</td>
+							<td class="text-center">
+								<span
+									:class="'badge bg-'+i.etiqueta+' text-'+i.etiqueta+'-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center'"
+								>
+								  <i :class="'fa fa-circle text-'+i.etiqueta+' fs-9px fa-fw me-5px'"></i> Etiqueta
+								</span>
 							</td>
 							<td class="text-center">
 								<i v-if="i.activo == 1" class="fas fa-check-circle text-success"></i>
@@ -98,7 +104,7 @@
 
 	<div 
 		class="modal fade" 
-		id="mdlUnidadMedida" 
+		id="mdlCategoria" 
 		data-bs-backdrop="static" 
 		data-bs-keyboard="false" 
 		tabindex="-1" 
@@ -109,7 +115,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						<i class="fas fa-scale-balanced me-1"></i> Unidad de medida
+						<i class="fas fa-folder-tree me-1"></i> Categoría
 					</h5>
 					<button 
 						type="button" 
@@ -122,7 +128,7 @@
 				<div class="modal-body">
 					<Form 
 						v-if="verForm" 
-						:um="um"
+						:categoria="categoria"
 						@cerrar="cerrarFrm"
 						@actualizar="actualizarLista"
 					/>
@@ -133,10 +139,10 @@
 </template>
 
 <script>
-	import Form from "@/views/mnt/um/Form.vue"
+	import Form from "@/views/mnt/categoria/Form.vue"
 
 	export default {
-		name: "UnidadMedida",
+		name: "Categoria",
 		data: () => ({
 			cargando: false,
 			verForm: false,
@@ -152,7 +158,7 @@
 				this.cargando = true
 
 				this.$http
-				.get(`${this.$baseUrl}/mnt/unidad_medida/buscar`, {params: this.bform})
+				.get(`${this.$baseUrl}/mnt/categoria/buscar`, {params: this.bform})
 				.then(res => {
 					this.cargando = false
 					this.lista = res.data.lista
@@ -163,20 +169,20 @@
 			},
 			frmUm(obj) {
 				this.verForm = true
-				this.um = obj
-				this.$abrirModal("mdlUnidadMedida")
+				this.categoria = obj
+				this.$abrirModal("mdlCategoria")
 			},
 			cerrarFrm() {
 				this.verForm = false
-				this.um = null
-				this.$cerrarModal("mdlUnidadMedida")
+				this.categoria = null
+				this.$cerrarModal("mdlCategoria")
 			},
 			actualizarLista(obj) {
-				if (this.um === null) {
+				if (this.categoria === null) {
 					this.lista.push(obj)
 				} else {
-					for (let i in this.um) {
-						this.um[i] = obj[i]
+					for (let i in this.categoria) {
+						this.categoria[i] = obj[i]
 					}
 				}
 

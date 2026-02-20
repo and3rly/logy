@@ -30,8 +30,13 @@ export const useAppSidebarMenuStore = defineStore({
         },
         {
           url: "/unidad_medida", 
-          text: "Unidad Medida", 
+          text: "Unidad de medida", 
           icon: "fas fa-scale-balanced" 
+        },
+        {
+          url: "/categoria", 
+          text: "Categoría", 
+          icon: "fas fa-folder-tree" 
         }
       ]
     }
