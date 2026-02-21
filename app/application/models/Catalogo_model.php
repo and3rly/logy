@@ -28,6 +28,33 @@ class Catalogo_model extends CI_Model {
 
 		return verConsulta($tmp, $args);
 	}
+
+	public function verMarcas($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("marca");
+
+		return verConsulta($tmp, $args);
+	}
+
+	public function verUnidadesMedida($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("unidad_medida");
+
+		return verConsulta($tmp, $args);
+	}
+
+	public function verCategorias($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("categoria");
+
+		return verConsulta($tmp, $args);
+	}
 }
 
 /* End of file Catalogo_model.php */

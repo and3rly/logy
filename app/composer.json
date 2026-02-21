@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"firebase/php-jwt": "^6.10"
+		"firebase/php-jwt": "^6.10",
+		"google/apiclient": "^2.16"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

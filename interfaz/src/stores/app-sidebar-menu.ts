@@ -11,32 +11,37 @@ export const useAppSidebarMenuStore = defineStore({
     {
       url: "/mante/",
       icon: "fa fa-cog",
-      text: "Mantenimiento",
+      text: "Mantenimientos",
       children: [
         {
           url: "/usuario", 
-          text: "Usuario", 
+          text: "Usuarios", 
           icon: "fas fa-user" 
         },
         {
           url: "/sucursal", 
-          text: "Sucursal", 
+          text: "Sucursales", 
           icon: "fas fa-home" 
         },
         {
           url: "/marca", 
-          text: "Marca", 
+          text: "Marcas", 
           icon: "fas fa-tag" 
         },
         {
           url: "/unidad_medida", 
-          text: "Unidad de medida", 
+          text: "Unidades de medida", 
           icon: "fas fa-scale-balanced" 
         },
         {
           url: "/categoria", 
-          text: "Categoría", 
+          text: "Categorias", 
           icon: "fas fa-folder-tree" 
+        },
+        {
+          url: "/producto", 
+          text: "Productos", 
+          icon: "fas fa-boxes-stacked" 
         }
       ]
     }

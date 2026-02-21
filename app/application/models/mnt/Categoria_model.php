@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Categoria_model extends General_model {
-
+	
 	public $nombre;
 	public $activo = 1;
 	public $etiqueta;

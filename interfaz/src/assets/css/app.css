@@ -4,3 +4,7 @@ input.form-control:disabled {
   opacity: 1;
   cursor: not-allowed;
 }
+
+#file-upload {
+  display: none;
+}
