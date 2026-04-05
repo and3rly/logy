@@ -67,6 +67,12 @@ const router = createRouter({
           meta: {titulo: "Moneda"}
         },
         {
+          path: "/proveedor",
+          name: "Proveedor",
+          component: () => import("../views/mnt/proveedor/Principal.vue"),
+          meta: {titulo: "Proveedor"}
+        },
+        {
           path: "/parametros",
           name: "Parametro",
           component: () => import("../views/mnt/empresa/Parametro.vue"),

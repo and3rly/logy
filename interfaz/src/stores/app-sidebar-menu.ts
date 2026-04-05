@@ -47,6 +47,11 @@ export const useAppSidebarMenuStore = defineStore({
           url: "/producto", 
           text: "Productos", 
           icon: "fas fa-boxes-stacked" 
+        },
+        {
+          url: "/proveedor", 
+          text: "Proveedores", 
+          icon: "fas fa-users" 
         }
       ]
     },

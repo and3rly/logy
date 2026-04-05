@@ -6,19 +6,19 @@
 					<a href="#">MANTENIMIENTO</a>
 				</li>
 				<li class="breadcrumb-item active">
-					CATEGORIAS
+					PROVEEDORES
 				</li>
 			</ul>
 
 			<h1 class="page-header mb-0">
-				Categorias
+				Proveedores
 			</h1>
 		</div>
 
 		<div class="ms-auto">
-			<a href="#" class="btn btn-theme" @click="frmCategoria(null)">
+			<a href="#" class="btn btn-theme" @click="frmProveedor(null)">
 				<i class="fa fa-plus-circle fa-fw me-1"></i>
-				Nueva
+				Nuevo
 			</a>
 		</div>
 	</div>
@@ -53,9 +53,11 @@
 				<table class="table table-sm table-hover text-nowrap m-0">
 					<thead class="table-primary">
 						<tr>
-							<th class="text-center" width="100">#</th>
+							<th class="text-center">#</th>
 							<th>Nombre</th>
-							<th class="text-center">Etiqueta</th>
+							<th>Dirección</th>
+							<th>Teléfono</th>
+							<th>Correo</th>
 							<th class="text-center">Estado</th>
 						</tr>
 					</thead>
@@ -66,7 +68,7 @@
 								Cargando...
 							</td> 
 						</tr>
-						<tr v-if="filtrada.length == 0 && !cargando">
+						<tr v-if="lista.length == 0 && !cargando">
 							<td
 								class="text-center py-2"
 								colspan="100"
@@ -82,15 +84,11 @@
 						>
 							<td class="text-center fw-bold">{{ idx + 1 }}</td>
 							<td class="fw-bold">
-								<a href="javascript:;" class="text-decoration-none" @click="frmCategoria(i)">{{ i.nombre }}</a>
+								<a href="javascript:;" class="text-decoration-none" @click="frmProveedor(i)">{{ i.nombre }}</a>
 							</td>
-							<td class="text-center">
-								<span
-									:class="'badge bg-'+i.etiqueta+' text-'+i.etiqueta+'-800 bg-opacity-25 px-2 pt-5px pb-5px rounded fs-12px d-inline-flex align-items-center'"
-								>
-								  <i :class="'fa fa-circle text-'+i.etiqueta+' fs-9px fa-fw me-5px'"></i> Etiqueta
-								</span>
-							</td>
+							<td>{{ i.direccion }}</td>
+							<td>{{ i.telefono }}</td>
+							<td>{{ i.correo }}</td>
 							<td class="text-center">
 								<i v-if="i.activo == 1" class="fas fa-check-circle text-success"></i>
 								<i v-else class="fas fa-times-circle text-danger"></i>
@@ -104,7 +102,7 @@
 
 	<div 
 		class="modal fade" 
-		id="mdlCategoria" 
+		id="mdlProveedor" 
 		data-bs-backdrop="static" 
 		data-bs-keyboard="false" 
 		tabindex="-1" 
@@ -115,7 +113,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						<i class="fas fa-folder-tree me-1"></i> Categoría
+						<i class="fas fa-users me-1"></i> Proveedor
 					</h5>
 					<button 
 						type="button" 
@@ -128,7 +126,7 @@
 				<div class="modal-body">
 					<Form 
 						v-if="verForm" 
-						:categoria="categoria"
+						:proveedor="proveedor"
 						@cerrar="cerrarFrm"
 						@actualizar="actualizarLista"
 					/>
@@ -139,16 +137,19 @@
 </template>
 
 <script>
-	import Form from "@/views/mnt/categoria/Form.vue"
+	import Form from "@/views/mnt/proveedor/Form.vue"
 
 	export default {
-		name: "Categoria",
+		name: "Proveedor",
 		data: () => ({
 			cargando: false,
 			verForm: false,
-			um: null,
-			lista: [],
-			bform: {}
+			actual: 1,
+			bform: {
+				termino: null
+			},
+			proveedor: null,
+			lista: []
 		}),
 		created() {
 			this.buscar()
@@ -158,7 +159,7 @@
 				this.cargando = true
 
 				this.$http
-				.get(`${this.$baseUrl}/mnt/categoria/buscar`, {params: this.bform})
+				.get(`${this.$baseUrl}/mnt/proveedor/buscar`, {params: this.bform})
 				.then(res => {
 					this.cargando = false
 					this.lista = res.data.lista
@@ -167,22 +168,22 @@
 					this.cargando = false
 				})
 			},
-			frmCategoria(obj) {
+			frmProveedor(obj) {
 				this.verForm = true
-				this.categoria = obj
-				this.$abrirModal("mdlCategoria")
+				this.proveedor = obj
+				this.$abrirModal("mdlProveedor")
 			},
 			cerrarFrm() {
 				this.verForm = false
-				this.categoria = null
-				this.$cerrarModal("mdlCategoria")
+				this.proveedor = null
+				this.$cerrarModal("mdlProveedor")
 			},
 			actualizarLista(obj) {
-				if (this.categoria === null) {
-					this.lista.push(obj)
+				if (this.proveedor === null) {
+					this.lista.unshift(obj)
 				} else {
-					for (let i in this.categoria) {
-						this.categoria[i] = obj[i]
+					for (let i in this.proveedor) {
+						this.proveedor[i] = obj[i]
 					}
 				}
 
