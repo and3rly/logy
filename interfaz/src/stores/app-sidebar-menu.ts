@@ -10,7 +10,7 @@ export const useAppSidebarMenuStore = defineStore({
 		},
     {
       url: "/mante/",
-      icon: "fa fa-cog",
+      icon: "fa fa-screwdriver-wrench",
       text: "Mantenimientos",
       children: [
         {
@@ -42,6 +42,18 @@ export const useAppSidebarMenuStore = defineStore({
           url: "/producto", 
           text: "Productos", 
           icon: "fas fa-boxes-stacked" 
+        }
+      ]
+    },
+    {
+      url: "/mante/",
+      icon: "fa fa-cogs",
+      text: "Configuraciones",
+      children: [
+        {
+          url: "/parametros", 
+          text: "Parámetros", 
+          icon: "fas fa-list" 
         }
       ]
     }

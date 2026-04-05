@@ -150,7 +150,7 @@
 				</label>
 				<input 
 					type="number"
-					step="0.01"
+					step="any" 
 					class="form-control"
 					v-model="form.costo"
 				/>
@@ -161,8 +161,7 @@
 				</label>
 				<input 
 					type="number"
-					step="0.01"
-					min="0"
+					step="any" 
 					class="form-control"
 					v-model="form.precio"
 				/>
@@ -174,8 +173,7 @@
 				</label>
 				<input 
 					type="number"
-					step="0.01"
-					min="0"
+					step="any" 
 					class="form-control"
 					v-model="form.existencia_minima"
 				/>
@@ -274,6 +272,7 @@
 			cat: {}
 		}),
 		created() {
+			this._emit = true
 			this.autoBuscar = false
 			this.formEspecial = true
 			this.url = "mnt/producto"

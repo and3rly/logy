@@ -70,12 +70,12 @@ async function logout() {
 		
 		<!-- BEGIN menu -->
 		<div class="menu">
-			<form class="menu-search" name="header_search_form" v-on:submit="checkForm">
-				<div class="menu-search-icon"><i class="fa fa-search"></i></div>
+			<div class="menu-search" name="header_search_form">
+				<!--div class="menu-search-icon"><i class="fa fa-search"></i></div>
 				<div class="menu-search-input">
 					<input type="text" class="form-control" placeholder="Search menu...">
-				</div>
-			</form>
+				</div-->
+			</div>
 			<div class="menu-item dropdown">
 				<a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
 					<div class="menu-icon"><i class="fa fa-bell nav-icon"></i></div>
@@ -115,14 +115,14 @@ async function logout() {
 							<i class="fa fa-user fa-2x mb-n3"></i>
 						</div>
 					</div>
-					<div class="menu-text">username@account.com</div>
+					<div class="menu-text">Usuario</div>
 				</a>
 				<div class="dropdown-menu dropdown-menu-end me-lg-3">
-					<RouterLink to="/profile" class="dropdown-item d-flex align-items-center">Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
+					<!--RouterLink to="/profile" class="dropdown-item d-flex align-items-center">Edit Profile <i class="fa fa-user-circle fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
 					<RouterLink to="/email/inbox" class="dropdown-item d-flex align-items-center">Inbox <i class="fa fa-envelope fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
 					<RouterLink to="/calendar" class="dropdown-item d-flex align-items-center">Calendar <i class="fa fa-calendar-alt fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
 					<RouterLink to="/settings" class="dropdown-item d-flex align-items-center">Setting <i class="fa fa-wrench fa-fw ms-auto text-gray-400 fs-16px"></i></RouterLink>
-					<div class="dropdown-divider"></div>
+					<div class="dropdown-divider"></div-->
 					<div
 						class="dropdown-item d-flex align-items-center"
 						@click="logout"

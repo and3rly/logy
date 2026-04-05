@@ -30,9 +30,7 @@ class Inicio
 				$datos = $tk->validar_token($token);
 
 				if ($datos) {
-					$this->ci->session->set_userdata([
-						"usuario" => var_session($datos->data)
-					]);
+					$this->ci->session->set_userdata(var_session($datos->data));
 				} else {
 					http_response_code(401);
 					outputJson(["mensaje" => "Token invalido"]);

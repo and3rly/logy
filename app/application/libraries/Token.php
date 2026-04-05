@@ -20,7 +20,7 @@ class Token
 	{
 		$data = [
 			"iat"  => $this->time,
-			"exp"  => $this->time + (60 * 60),
+			"exp"  => $this->time + (24 * 3600),
 			"data" => $data
 		];
 

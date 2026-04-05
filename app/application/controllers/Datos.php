@@ -9,7 +9,7 @@ class Datos extends CI_Controller {
 
 	public function index()
 	{
-		
+		die("Hola");
 	}
 
 	public function set_datos()
