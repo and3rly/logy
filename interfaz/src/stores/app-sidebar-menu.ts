@@ -39,6 +39,11 @@ export const useAppSidebarMenuStore = defineStore({
           icon: "fas fa-folder-tree" 
         },
         {
+          url: "/moneda", 
+          text: "Monedas", 
+          icon: "fas fa-coins" 
+        },
+        {
           url: "/producto", 
           text: "Productos", 
           icon: "fas fa-boxes-stacked" 
