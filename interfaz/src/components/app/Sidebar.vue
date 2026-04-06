@@ -181,7 +181,9 @@ function handleGetHiddenMenuHeight(elm) {
 	return targetHeight;
 }
 
-onMounted(() => {
+onMounted(async () => {
+	await appSidebarMenu.cargarMenu()
+
 	var handleSidebarMenuToggle = function(menus, expandTime) {
 		menus.map(function(menu) {
 			menu.onclick = function(e) {
@@ -238,12 +240,12 @@ onMounted(() => {
 	<div id="sidebar" class="app-sidebar">
 		<perfect-scrollbar class="app-sidebar-content">
 			<div class="menu">
-				<template v-for="menu in appSidebarMenu">
-					<div class="menu-header" v-if="menu.is_header">{{ menu.text }}</div>
-					<div class="menu-divider" v-else-if="menu.is_divider"></div>
-					<template v-else>
-						<sidebar-nav v-if="menu.text" v-bind:menu="menu"></sidebar-nav>
-					</template>
+				<template v-for="menu in appSidebarMenu.menu">
+					<!--div class="menu-header" v-if="menu.detalle == 0">{{ menu.nombre }}</div-->
+					<!--div class="menu-divider" v-else-if="menu.is_divider"></div-->
+					<!--template v-else-->
+					<sidebar-nav v-if="menu.nombre" v-bind:menu="menu"></sidebar-nav>
+					<!--/template-->
 				</template>
 				<!--div class="p-3 px-4 mt-auto hide-on-minified">
 					<a href="https://seantheme.com/studio-vue/documentation/index.html" target="_blank" class="btn d-block btn-secondary fw-600 rounded-pill">
