@@ -16,6 +16,12 @@ class Inicio
 	public function validar_sesion()
 	{
 		$tmp = explode("/", $_SERVER["REQUEST_URI"]);
+		$ruta = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
+		$impresionCompra = strpos($ruta, "/compra/orden/imprimir/") !== false;
+
+		if ($impresionCompra && $this->ci->session->userdata("id")) {
+			return;
+		}
 
 		if (isset($tmp[3]) && in_array($tmp[3], $this->permitidas)) {
 			return;

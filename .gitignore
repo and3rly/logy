@@ -1,7 +1,9 @@
 .DS_Store
 
+/BRAIN
 app/application/cache/*
 !app/application/cache/index.html
+.pnpm-store/
 
 app/application/logs/*
 !app/application/logs/index.html
@@ -58,6 +60,7 @@ interfaz/cypress/screenshots/
 interfaz/.idea/
 interfaz/.vscode/*
 !interfaz/.vscode/extensions.json
+interfaz/tsconfig.app.tsbuildinfo
 
 interfaz/*.suo
 interfaz/*.ntvs*

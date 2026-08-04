@@ -55,6 +55,56 @@ class Catalogo_model extends CI_Model {
 
 		return verConsulta($tmp, $args);
 	}
+
+	public function verProveedores($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("proveedor");
+
+		return verConsulta($tmp, $args);
+	}
+
+	public function verFormasPago($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("forma_pago");
+
+		return verConsulta($tmp, $args);
+	}
+
+	public function verMonedas($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("moneda");
+
+		return verConsulta($tmp, $args);
+	}
+
+	public function verSucursales($args=[])
+	{
+		$tmp = $this->db
+		->where("activo", 1)
+		->get("sucursal");
+
+		return verConsulta($tmp, $args);
+	}
+
+	public function verTiposMovimiento($args=[])
+	{
+		if (elemento($args, "codigo")) {
+			$this->db->where("codigo", $args["codigo"]);
+		}
+
+		$tmp = $this->db
+		->where("activo", 1)
+		->where("empresa_id", $this->session->userdata("empresa_id"))
+		->get("movimiento_tipo");
+
+		return verConsulta($tmp, $args);
+	}
 }
 
 /* End of file Catalogo_model.php */

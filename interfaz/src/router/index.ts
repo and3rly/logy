@@ -31,6 +31,12 @@ const router = createRouter({
           meta: {titulo: "Usuario"}
         },
         {
+          path: "/rol",
+          name: "Rol",
+          component: () => import("../views/mnt/rol/Principal.vue"),
+          meta: {titulo: "Roles"}
+        },
+        {
           path: "/sucursal",
           name: "Sucursal",
           component: () => import("../views/mnt/sucursal/Principal.vue"),
@@ -77,6 +83,12 @@ const router = createRouter({
           name: "Parametro",
           component: () => import("../views/mnt/empresa/Parametro.vue"),
           meta: {titulo: "Parámetro"}
+        },
+        {
+          path: "/compra",
+          name: "Compra",
+          component: () => import("../views/compra/Principal.vue"),
+          meta: {titulo: "Compras"}
         }
       ]
     }
