@@ -1,277 +1,83 @@
-<template>
-	<template v-if="!verForm">
-	<div class="d-flex align-items-center mb-3">
-		<div>
-			<ul class="breadcrumb">
-				<li class="breadcrumb-item"><a href="#">COMPRAS</a></li>
-				<li class="breadcrumb-item active">ÓRDENES DE COMPRA</li>
-			</ul>
-			<h1 class="page-header mb-0">Compras</h1>
-		</div>
-
-		<div class="ms-auto">
-			<button type="button" class="btn btn-theme" @click="frmOrden(null)">
-				<i class="fa fa-plus-circle fa-fw me-1"></i>
-				Nueva compra
-			</button>
-		</div>
-	</div>
-
-	<div class="card shadow-sm mb-3">
-		<div class="card-body">
-			<div class="row g-2 align-items-end">
-				<div class="col-lg-5">
-					<label class="form-label fw-bold">Buscar</label>
-					<div class="input-group">
-						<span class="input-group-text bg-white border-end-0">
-							<i class="fa fa-search opacity-5"></i>
-						</span>
-						<input
-							type="text"
-							class="form-control border-start-0 ps-0"
-							placeholder="Número de compra, factura o proveedor..."
-							v-model="bform.termino"
-							@keyup.enter="buscar"
-						/>
-					</div>
-				</div>
-				<div class="col-sm-4 col-lg-2">
-					<label class="form-label fw-bold">Estado</label>
-					<select class="form-select" v-model="bform.compra_estado_id">
-						<option :value="null">Todos</option>
-						<option value="1">Creada</option>
-						<option value="2">Recibida</option>
-						<option value="3">Anulada</option>
-					</select>
-				</div>
-				<div class="col-sm-4 col-lg-2">
-					<label class="form-label fw-bold">Desde</label>
-					<input type="date" class="form-control" v-model="bform.fecha_desde" />
-				</div>
-				<div class="col-sm-4 col-lg-2">
-					<label class="form-label fw-bold">Hasta</label>
-					<input type="date" class="form-control" v-model="bform.fecha_hasta" />
-				</div>
-				<div class="col-lg-1 d-grid">
-					<button type="button" class="btn btn-outline-secondary" @click="buscar">
-						<i class="fas fa-filter"></i>
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="card shadow-sm">
-		<div class="card-body p-0">
-			<div class="table-responsive">
-				<table class="table table-sm table-hover text-nowrap align-middle m-0">
-					<thead class="table-primary">
-						<tr>
-							<th class="text-center">#</th>
-							<th>Número</th>
-							<th>Fecha</th>
-							<th>Proveedor</th>
-							<th>Factura</th>
-							<th>Forma de pago</th>
-							<th class="text-end">Total</th>
-							<th class="text-center">Estado</th>
-							<th class="text-center">Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-if="cargando">
-							<td colspan="9" class="text-center py-5">
-								<div class="spinner-border text-theme mb-2"></div>
-								<div>Cargando...</div>
-							</td>
-						</tr>
-						<tr v-else-if="lista.length === 0">
-							<td colspan="9" class="text-center py-5 text-body-secondary">
-								<i class="fas fa-shopping-cart fa-2x mb-2 opacity-25"></i>
-								<div>No se encontraron compras.</div>
-							</td>
-						</tr>
-						<tr v-else v-for="(compra, idx) in lista" :key="compra.id">
-							<td class="text-center fw-bold">{{ idx + 1 }}</td>
-							<td class="fw-bold">{{ compra.numero }}</td>
-							<td>{{ formatoFecha(compra.fecha, 2) }}</td>
-							<td>{{ compra.nombre_proveedor }}</td>
-							<td>{{ compra.factura_numero || "-" }}</td>
-							<td>
-								<span
-									:class="[
-										'status-badge',
-										compra.forma_pago_id == 1
-											? 'status-success'
-											: 'status-purple'
-									]"
-								>
-									<span class="status-dot"></span>
-									{{ compra.nombre_forma_pago }}
-								</span>
-							</td>
-							<td class="text-end fw-bold">
-								{{ compra.simbolo_moneda }} {{ formatoNumero(compra.total_costo, "0,0.00") }}
-							</td>
-							<td class="text-center">
-								<span
-									:class="[
-										'status-badge',
-										`status-${compra.etiqueta || 'secondary'}`
-									]"
-								>
-									<span class="status-dot"></span>
-									{{ compra.nombre_estado }}
-								</span>
-							</td>
-							<td class="text-center">
-								<button type="button" class="btn btn-sm btn-outline-theme" @click="frmOrden(compra)">
-									<i class="fas fa-edit"></i>
-								</button>
-								<a
-									:href="urlImpresion(compra.id)"
-									target="_blank"
-									rel="noopener"
-									class="btn btn-sm btn-outline-dark ms-1"
-								>
-									<i class="fas fa-print"></i>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	</template>
-
-	<Form
-		v-else
-		:compra="compra"
-		@cerrar="cerrarFrm"
-		@actualizar="actualizarLista"
-	/>
-</template>
-
-<script>
-	import Helper from "@/mixins/Helper.js"
-	import Form from "@/views/compra/Form.vue"
-
-	export default {
-		name: "CompraPrincipal",
-		mixins: [Helper],
-		data: () => ({
-			cargando: false,
-			verForm: false,
-			compra: null,
-			lista: [],
-			bform: {
-				termino: null,
-				compra_estado_id: null,
-				fecha_desde: null,
-				fecha_hasta: null
-			}
-		}),
-		created() {
-			const hoy = new Date()
-			const anio = hoy.getFullYear()
-			const mes = String(hoy.getMonth() + 1).padStart(2, "0")
-			const dia = String(hoy.getDate()).padStart(2, "0")
-
-			this.bform.fecha_desde = `${anio}-${mes}-01`
-			this.bform.fecha_hasta = `${anio}-${mes}-${dia}`
-			this.buscar()
-		},
-		methods: {
-			urlImpresion(id) {
-				const api = this.$http.defaults.baseURL.replace(/\/$/, "")
-				return `${api}/${this.$baseUrl}/compra/orden/imprimir/${id}`
-			},
-			frmOrden(obj) {
-				this.compra = obj
-				this.verForm = true
-			},
-			cerrarFrm() {
-				this.compra = null
-				this.verForm = false
-			},
-			actualizarLista(obj) {
-				if (this.compra === null) {
-					this.lista.unshift(obj)
-				} else {
-					for (let i in this.compra) {
-						this.compra[i] = obj[i]
-					}
-				}
-
-				this.cerrarFrm()
-			},
-			buscar() {
-				this.cargando = true
-
-				this.$http
-				.get(`${this.$baseUrl}/compra/orden/buscar`, { params: this.bform })
-				.then(res => {
-					this.lista = res.data.lista || []
-				})
-				.catch(e => {
-					console.log(e)
-					this.lista = []
-				})
-				.finally(() => {
-					this.cargando = false
-				})
-			}
-		},
-		components: {
-			Form
-		}
-	}
+<script setup>
+import { ref, reactive, onMounted } from 'vue'
+import { ShoppingCart, Plus, Search, Eye, Printer } from '@lucide/vue'
+import Tarjeta from '../../components/ui/BaseCard.vue'
+import Tabla from '../../components/ui/BaseTable.vue'
+import Ruta from '../../components/ui/Breadcrumb.vue'
+import NativePdfDialog from '../../components/ui/NativePdfDialog.vue'
+import Form from './Form.vue'
+import api from '../../services/api'
+import { toast } from 'vue3-toastify'
+const lista = ref([])
+const cargando = ref(false)
+const error = ref(false)
+const verFormulario = ref(false)
+const seleccionada = ref(null)
+const pdfUrl = ref('')
+const urlApi = ruta => new URL(ruta, new URL(api.defaults.baseURL, window.location.origin)).href
+const hoy = new Date()
+const fechaLocal = fecha => [fecha.getFullYear(), String(fecha.getMonth()+1).padStart(2,'0'), String(fecha.getDate()).padStart(2,'0')].join('-')
+const filtros = reactive({ termino: '', compra_estado_id: '', fecha_desde: fechaLocal(new Date(hoy.getFullYear(),hoy.getMonth(),1)), fecha_hasta: fechaLocal(hoy) })
+const columnas = [
+ {key:'numero',label:'Número'}, {key:'fecha',label:'Fecha'}, {key:'nombre_proveedor',label:'Proveedor'},
+ {key:'factura_numero',label:'Factura'}, {key:'nombre_forma_pago',label:'Forma de pago'},
+ {key:'total_costo',label:'Total',class:'text-end'}, {key:'nombre_estado',label:'Estado'}, {key:'acciones',label:'Acciones',class:'text-end'}
+]
+async function buscar() {
+ if(cargando.value)return
+ if(filtros.fecha_desde && filtros.fecha_hasta && filtros.fecha_desde > filtros.fecha_hasta){toast.error('Revisa el rango de fechas.');return}
+ cargando.value=true;error.value=false
+ try {
+  const {data}=await api.get('index.php/compra/orden/buscar',{params:{...filtros}})
+  if(!Array.isArray(data.lista))throw new Error(data.mensaje || 'No se pudo cargar el listado.')
+  lista.value=data.lista
+ }catch(problema){error.value=true;toast.error(problema.message || 'No se pudieron cargar las órdenes.')}
+ finally{cargando.value=false}
+}
+function abrir(compra=null){seleccionada.value=compra;verFormulario.value=true}
+function actualizar(compra){
+ const esNueva = !seleccionada.value
+ verFormulario.value=false
+ seleccionada.value=null
+ if(esNueva){
+  const indice=lista.value.findIndex(registro=>String(registro.id)===String(compra.id))
+  if(indice>=0)lista.value.splice(indice,1,compra)
+  else lista.value.unshift(compra)
+  return
+ }
+ buscar()
+}
+function imprimir(compra){pdfUrl.value=urlApi('index.php/compra/orden/imprimir/'+encodeURIComponent(compra.id))}
+onMounted(buscar)
 </script>
-
-<style scoped>
-	.status-badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.35rem;
-		padding: 0.3rem 0.55rem;
-		border-radius: 0.4rem;
-		font-size: 0.75rem;
-		font-weight: 500;
-		line-height: 1;
-		white-space: nowrap;
-	}
-
-	.status-dot {
-		width: 0.5rem;
-		height: 0.5rem;
-		border-radius: 50%;
-		background-color: currentColor;
-	}
-
-	.status-success,
-	.status-lime {
-		color: #12876f;
-		background-color: #cef3e9;
-	}
-
-	.status-purple {
-		color: #7253b5;
-		background-color: #e9e1f8;
-	}
-
-	.status-primary {
-		color: #3268cf;
-		background-color: #d9e5ff;
-	}
-
-	.status-danger {
-		color: #d83b3b;
-		background-color: #f8d3d3;
-	}
-
-	.status-secondary {
-		color: #64748b;
-		background-color: #e2e8f0;
-	}
-</style>
+<template>
+ <div class="maintenance-screen purchase-orders-list">
+  <NativePdfDialog v-if="pdfUrl" :url="pdfUrl" @close="pdfUrl=''" />
+  <Form v-if="verFormulario" :compra="seleccionada" @cerrar="verFormulario=false" @actualizar="actualizar" @imprimir="imprimir" />
+  <template v-else>
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+    <div class="space-y-3"><Ruta :items="[{label:'Compras'},{label:'Órdenes de compra'}]" /><h2 class="flex items-center gap-2 text-xl font-semibold"><ShoppingCart :size="22" class="text-accent" aria-hidden="true" />Órdenes de compra</h2></div>
+    <button type="button" class="btn-primary inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold" @click="abrir()"><Plus :size="16" aria-hidden="true" />Nueva orden</button>
+   </div>
+   <Tarjeta no-padding class="maintenance-catalog">
+    <form class="grid gap-3 border-b border-line p-4 sm:grid-cols-2 xl:grid-cols-[minmax(180px,1fr)_150px_150px_150px_auto]" @submit.prevent="buscar">
+     <div><label for="oc-buscar" class="mb-1 block text-xs text-muted">Buscar</label><input id="oc-buscar" v-model="filtros.termino" class="min-h-10 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/10" placeholder="Número, factura o proveedor" /></div>
+     <div><label for="oc-estado" class="mb-1 block text-xs text-muted">Estado</label><select id="oc-estado" v-model="filtros.compra_estado_id" class="min-h-10 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/10"><option value="">Todos</option><option value="1">Creada</option><option value="2">Recibida</option><option value="3">Anulada</option></select></div>
+     <div><label for="oc-desde" class="mb-1 block text-xs text-muted">Desde</label><input id="oc-desde" v-model="filtros.fecha_desde" type="date" class="min-h-10 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/10" /></div>
+     <div><label for="oc-hasta" class="mb-1 block text-xs text-muted">Hasta</label><input id="oc-hasta" v-model="filtros.fecha_hasta" type="date" class="min-h-10 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/10" /></div>
+     <button type="submit" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-3 text-sm font-medium hover:bg-soft self-end" :disabled="cargando" title="Buscar órdenes" aria-label="Buscar órdenes"><Search :size="18" aria-hidden="true" /></button>
+    </form>
+    <p v-if="cargando" role="status" class="p-10 text-center text-sm text-muted">Cargando órdenes…</p>
+    <div v-else-if="error" class="p-8 text-center"><button class="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-3 text-sm font-medium hover:bg-soft" @click="buscar">Reintentar</button></div>
+    <Tabla v-else :columns="columnas" :rows="lista" empty-text="No se encontraron órdenes de compra." class="[&_th]:px-3! [&_td]:px-3! [&_td]:py-1.5! [&_td]:text-[13px]">
+     <template #cell-numero="{row}"><button class="min-h-8 font-semibold text-accent" @click="abrir(row)">{{row.numero}}</button></template>
+     <template #cell-fecha="{value}">{{String(value || '').slice(0,10)}}</template>
+     <template #cell-total_costo="{row}"><span class="font-semibold tabular-nums">{{row.simbolo_moneda}} {{Number(row.total_costo || 0).toLocaleString('es-GT',{minimumFractionDigits:2,maximumFractionDigits:2})}}</span></template>
+     <template #cell-nombre_estado="{row}"><span class="rounded-full px-2 py-1 text-xs" :class="Number(row.compra_estado_id)===2?'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300':Number(row.compra_estado_id)===3?'bg-red-500/10 text-red-700 dark:text-red-300':'bg-accent/10 text-accent'">{{row.nombre_estado}}</span></template>
+     <template #cell-acciones="{row}"><button class="size-8 rounded-lg text-muted hover:bg-soft" title="Abrir orden" aria-label="Abrir orden" @click="abrir(row)"><Eye :size="16" class="mx-auto" /></button><button class="size-8 rounded-lg text-muted hover:bg-soft" title="Ver PDF" aria-label="Ver PDF" @click="imprimir(row)"><Printer :size="16" class="mx-auto" /></button></template>
+    </Tabla>
+    <p class="border-t border-line px-4 py-3 text-xs text-muted">{{lista.length}} órdenes</p>
+   </Tarjeta>
+  </template>
+ </div>
+</template>

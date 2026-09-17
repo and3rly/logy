@@ -1,214 +1,150 @@
-<template>
-	<div class="d-flex align-items-center mb-3">
-		<div>
-			<ul class="breadcrumb">
-				<li class="breadcrumb-item">
-					<a href="#">MANTENIMIENTO</a>
-				</li>
-				<li class="breadcrumb-item active">
-					SUCURSALES
-				</li>
-			</ul>
+<script setup>
+import { computed, onMounted, ref } from 'vue'
+import { Plus as Agregar, Search as Buscar, RefreshCw as Actualizar, Pencil as Editar, Store as IconoModulo, CircleAlert as Alerta, X as Cerrar } from '@lucide/vue'
+import TarjetaBase from '../../../components/ui/BaseCard.vue'
+import TablaBase from '../../../components/ui/BaseTable.vue'
+import RutaNavegacion from '../../../components/ui/Breadcrumb.vue'
+import FormularioRegistro from './Form.vue'
+import api from '../../../services/api'
+import { toast } from 'vue3-toastify'
 
-			<h1 class="page-header mb-0">
-				Sucursales
-			</h1>
-		</div>
+const registros = ref([])
+const cargando = ref(false)
+const error = ref('')
+const termino = ref('')
+const estado = ref('todos')
+const mostrarFormulario = ref(false)
+const seleccionada = ref(null)
+const columnas = [
+  { key: 'nombre', label: 'Sucursal' },
+  { key: 'nombre_departamento', label: 'Departamento' },
+  { key: 'nombre_municipio', label: 'Municipio' },
+  { key: 'telefono', label: 'Teléfono' },
+  { key: 'activo', label: 'Estado' },
+  { key: 'acciones', label: 'Acciones', class: 'text-end' },
+]
+const activas = computed(() => registros.value.filter(registro => Number(registro.activo) === 1).length)
+const filtros = computed(() => [
+  { valor: 'todos', nombre: 'Todas', cantidad: registros.value.length },
+  { valor: '1', nombre: 'Activas', cantidad: activas.value },
+  { valor: '0', nombre: 'Inactivas', cantidad: registros.value.filter(registro => Number(registro.activo) === 0).length },
+])
+function limpiarFiltros() {
+  termino.value = ''
+  estado.value = 'todos'
+}
+const filtradas = computed(() => {
+  const busqueda = termino.value.trim().toLocaleLowerCase('es')
+  return registros.value.filter(registro =>
+    (estado.value === 'todos' || Number(registro.activo) === Number(estado.value)) &&
+    [registro.nombre, registro.nombre_departamento, registro.nombre_municipio, registro.telefono].some(valor => String(valor ?? '').toLocaleLowerCase('es').includes(busqueda)))
+})
 
-		<div class="ms-auto">
-			<a href="#" class="btn btn-theme" @click="frmSucursal(null)">
-				<i class="fa fa-plus-circle fa-fw me-1"></i>
-				Nuevo
-			</a>
-		</div>
-	</div>
+async function cargar() {
+  if (cargando.value) return
+  cargando.value = true
+  error.value = ''
+  try {
+    const { data: respuesta } = await api.get('index.php/mnt/sucursal/buscar')
+    if (!Array.isArray(respuesta.lista)) {
+      throw new Error(respuesta.mensaje || 'No se pudo obtener el listado de registros.')
+    }
+    registros.value = respuesta.lista
+  } catch (problema) {
+    error.value = problema.message || 'No se pudo cargar el listado.'
+  } finally {
+    cargando.value = false
+  }
+}
 
-	<div class="mb-2">
-		<div class="input-group mt-3">
-			<input 
-				type="text" 
-				class="form-control ps-35px"
-				placeholder="Buscar..." 
-				v-model="bform.termino"
-				style="border-radius: 4px;" 
-			/>
-			<div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0" style="z-index: 1020;">
-				<i class="fa fa-search opacity-5"></i>
-			</div>
+function abrirFormulario(registro = null) {
+  seleccionada.value = registro
+  mostrarFormulario.value = true
+}
 
-			<div 
-				v-if="bform.termino"
-				class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 end-0"
-				style="z-index: 1020; cursor: pointer;"
-				@click="bform.termino = null"
-			>
-				<i class="fa fa-times opacity-5"></i>
-			</div>
-		</div>
-	</div>
+function actualizarLista(registro) {
+  const indice = registros.value.findIndex(elemento => String(elemento.id) === String(registro.id))
+  if (indice >= 0) registros.value.splice(indice, 1, registro)
+  else registros.value.unshift(registro)
+  mostrarFormulario.value = false
+  toast.success('Sucursal guardada correctamente.')
+}
 
-	<div class="card shadow-sm"> 
-		<div class="card-body p-0">
-			<div class="table-responsive">
-				<table class="table table-sm table-hover text-nowrap m-0">
-					<thead class="table-primary">
-						<tr>
-							<th class="text-center">#</th>
-							<th>Nombre</th>
-							<th>Dirección</th>
-							<th>Teléfono</th>
-							<th>Correo</th>
-							<th>Departamento</th>
-							<th>Municipio</th>
-							<th class="text-center">Estado</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-if="cargando">
-							<td colspan="100" class="text-center py-2">
-								<div class="spinner-border text-dark"></div><br>
-								Cargando...
-							</td> 
-						</tr>
-						<tr v-if="lista.length == 0 && !cargando">
-							<td
-								class="text-center py-2"
-								colspan="100"
-							>
-								No se encontraron registros.
-							</td>
-						</tr>
-						<tr 
-							v-else 
-							v-for="(i, idx) in filtrada" 
-							style="cursor: pointer;" 
-							:key="idx"
-						>
-							<td class="text-center fw-bold">{{ idx + 1 }}</td>
-							<td class="fw-bold">
-								<a href="javascript:;" class="text-decoration-none" @click="frmSucursal(i)">{{ i.nombre }}</a>
-							</td>
-							<td>{{ i.direccion }}</td>
-							<td>{{ i.telefono }}</td>
-							<td>{{ i.correo }}</td>
-							<td>{{ i.nombre_departamento }}</td>
-							<td>{{ i.nombre_municipio }}</td>
-							<td class="text-center">
-								<i v-if="i.activo == 1" class="fas fa-check-circle text-success"></i>
-								<i v-else class="fas fa-times-circle text-danger"></i>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-
-	<div 
-		class="modal fade" 
-		id="mdlSucursal" 
-		data-bs-backdrop="static" 
-		data-bs-keyboard="false" 
-		tabindex="-1" 
-		aria-labelledby="staticBackdropLabel" 
-		aria-hidden="true"
-	>
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">
-						<i class="fas fa-home me-1"></i> Sucursal
-					</h5>
-					<button 
-						type="button" 
-						class="btn-close" 
-						data-bs-dismiss="modal" 
-						aria-label="Close"
-						@click="cerrarFrm"
-					></button>
-				</div>
-				<div class="modal-body">
-					<Form 
-						v-if="verForm" 
-						:sucursal="sucursal"
-						@cerrar="cerrarFrm"
-						@actualizar="actualizarLista"
-					/>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
-
-<script>
-	import Form from "@/views/mnt/sucursal/Form.vue"
-
-	export default {
-		name: "Sucursal",
-		data: () => ({
-			cargando: false,
-			verForm: false,
-			actual: 1,
-			bform: {
-				termino: null
-			},
-			sucursal: null,
-			lista: []
-		}),
-		created() {
-			this.buscar()
-		},
-		methods: {
-			buscar() {
-				this.cargando = true
-
-				this.$http
-				.get(`${this.$baseUrl}/mnt/sucursal/buscar`, {params: this.bform})
-				.then(res => {
-					this.cargando = false
-					this.lista = res.data.lista
-				}).catch(e => {
-					alert(e)
-					this.cargando = false
-				})
-			},
-			frmSucursal(obj) {
-				this.verForm = true
-				this.sucursal = obj
-				this.$abrirModal("mdlSucursal")
-			},
-			cerrarFrm() {
-				this.verForm = false
-				this.sucursal = null
-				this.$cerrarModal("mdlSucursal")
-			},
-			actualizarLista(obj) {
-				if (this.sucursal === null) {
-					this.lista.unshift(obj)
-				} else {
-					for (let i in this.sucursal) {
-						this.sucursal[i] = obj[i]
-					}
-				}
-
-				this.cerrarFrm()
-			}
-		},
-		computed: {
-			filtrada() {
-				if (!this.bform.termino) return this.lista;
-				
-				let termino = this.bform.termino.toLowerCase().trim();
-
-				return this.lista.filter(obj =>
-					Object.values(obj).some(val =>
-						val != null && String(val).toLowerCase().includes(termino)
-						)
-					);
-			}
-		},
-		components: {
-			Form
-		}
-	}
+onMounted(cargar)
 </script>
+
+<template>
+  <div class="maintenance-screen">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="space-y-3">
+        <RutaNavegacion :items="[{ label: 'Mantenimiento' }, { label: 'Sucursales' }]" />
+        <h2 class="flex items-center gap-2 text-xl font-semibold leading-tight tracking-tight"><IconoModulo :size="22" class="text-accent" aria-hidden="true" /> Sucursales</h2>
+      </div>
+      <button type="button" class="btn-primary inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold" @click="abrirFormulario()">
+        <Agregar :size="16" aria-hidden="true" /> Nueva
+      </button>
+    </div>
+
+
+    <TarjetaBase no-padding class="maintenance-catalog">
+      <div class="flex flex-col gap-2 border-b border-line px-4 py-2 sm:px-5 xl:flex-row xl:items-center xl:justify-between xl:gap-4">
+        <div class="flex max-w-full flex-wrap gap-1" role="group" aria-label="Filtrar registros por estado">
+          <button v-for="filtro in filtros" :key="filtro.valor" type="button" :aria-pressed="estado === filtro.valor" class="inline-flex min-h-11 items-center gap-2 border-b-2 px-3 text-xs font-semibold transition-colors sm:text-sm" :class="estado === filtro.valor ? 'border-accent text-accent' : 'border-transparent text-muted hover:text-ink'" @click="estado = filtro.valor">
+            {{ filtro.nombre }}
+            <span class="rounded px-1.5 py-0.5 text-[11px] tabular-nums" :class="estado === filtro.valor ? 'bg-accent/10 text-accent' : 'bg-soft text-muted'">{{ cargando || error ? '—' : filtro.cantidad }}</span>
+          </button>
+        </div>
+        <div class="flex min-w-0 items-center gap-2 xl:w-96 xl:shrink-0">
+          <div class="relative min-w-0 flex-1">
+            <label for="buscar-registro" class="sr-only">Buscar registros</label>
+            <Buscar :size="16" class="pointer-events-none absolute left-3 top-3 text-muted" aria-hidden="true" />
+            <input id="buscar-registro" v-model="termino" type="search" class="min-h-10 w-full rounded-lg border border-line bg-canvas py-2 pl-9 pr-3 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/10" placeholder="Buscar sucursal…" />
+          </div>
+          <button v-if="termino || estado !== 'todos'" type="button" class="flex size-10 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-soft hover:text-accent" aria-label="Limpiar filtros" title="Limpiar filtros" @click="limpiarFiltros"><Cerrar :size="16" aria-hidden="true" /></button>
+          <button type="button" class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg text-muted transition-colors hover:bg-soft hover:text-ink" aria-label="Actualizar sucursales" title="Actualizar sucursales" :disabled="cargando" @click="cargar">
+            <Actualizar :size="17" :class="{ 'animate-spin motion-reduce:animate-none': cargando }" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
+      <div v-if="cargando" class="px-6 py-8" role="status">
+        <p class="mb-6 flex items-center justify-center gap-2 text-sm text-muted"><Actualizar :size="16" class="animate-spin motion-reduce:animate-none" aria-hidden="true" /> Cargando catálogo…</p>
+        <div v-for="fila in 4" :key="fila" class="mb-4 flex animate-pulse items-center gap-4 motion-reduce:animate-none" aria-hidden="true"><span class="size-11 rounded-xl bg-soft"></span><span class="h-3 w-1/3 rounded bg-soft"></span><span class="ml-auto h-6 w-16 rounded-full bg-soft"></span></div>
+      </div>
+      <div v-else-if="error" class="flex flex-col items-center gap-3 px-6 py-12 text-center" role="alert">
+        <Alerta :size="28" class="text-red-600 dark:text-red-300" aria-hidden="true" />
+        <h3 class="font-semibold">No pudimos cargar las sucursales</h3>
+        <p class="max-w-md text-sm text-muted">{{ error }}</p>
+        <button type="button" class="mt-2 min-h-11 rounded-xl border border-line px-5 text-sm font-semibold hover:bg-soft" @click="cargar">Reintentar</button>
+      </div>
+      <template v-else>
+        <TablaBase v-if="filtradas.length" :columns="columnas" :rows="filtradas" class="[&_th]:px-3! [&_th]:py-1.5! [&_th]:text-xs [&_td]:px-3! [&_td]:py-1! [&_td]:text-[13px]">
+          <template #cell-nombre="{ row: registro }">
+            <button type="button" class="group flex min-h-7 items-center gap-2 rounded-lg text-left" @click="abrirFormulario(registro)">
+              <span class="max-w-48 truncate font-semibold transition-colors group-hover:text-accent sm:max-w-80" :title="registro.nombre">{{ registro.nombre }}</span>
+            </button>
+          </template>
+          <template #cell-activo="{ value: activo }">
+            <span class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ring-1 ring-inset" :class="Number(activo) === 1 ? 'bg-emerald-500/10 text-emerald-700 ring-emerald-500/20 dark:text-emerald-300' : 'bg-soft text-muted ring-line'">
+              <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>{{ Number(activo) === 1 ? 'Activa' : 'Inactiva' }}
+            </span>
+          </template>
+          <template #cell-acciones="{ row: registro }">
+            <button type="button" class="inline-flex size-7 items-center justify-center rounded-lg text-muted transition-colors hover:bg-accent/10 hover:text-accent" :title="`Editar ${registro.nombre}`" :aria-label="`Editar ${registro.nombre}`" @click="abrirFormulario(registro)"><Editar :size="14" aria-hidden="true" /></button>
+          </template>
+        </TablaBase>
+        <div v-else class="flex flex-col items-center px-6 py-14 text-center">
+          <span class="mb-4 flex size-16 items-center justify-center rounded-2xl bg-soft text-muted"><Buscar v-if="registros.length" :size="28" aria-hidden="true" /><IconoModulo v-else :size="28" aria-hidden="true" /></span>
+          <h3 class="font-semibold">{{ registros.length ? 'Sin coincidencias' : 'Tu catálogo comienza aquí' }}</h3>
+          <p class="mt-2 max-w-sm text-sm text-muted">{{ registros.length ? 'Prueba con otro nombre, o cambia los filtros.' : 'Agrega tu primera sucursal para tenerla disponible en el sistema.' }}</p>
+          <button type="button" class="mt-5 min-h-11 rounded-xl border border-line px-5 text-sm font-semibold text-accent hover:bg-accent/5" @click="registros.length ? limpiarFiltros() : abrirFormulario()">{{ registros.length ? 'Limpiar filtros' : 'Agregar primera sucursal' }}</button>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-soft/30 px-4 py-3 text-xs text-muted" aria-live="polite">
+          <span><strong class="font-semibold text-ink">{{ filtradas.length }}</strong> de {{ registros.length }} sucursales</span>
+          <span>Selecciona una sucursal para editarla</span>
+        </div>
+      </template>
+    </TarjetaBase>
+    <FormularioRegistro v-if="mostrarFormulario" :registro="seleccionada" @cerrar="mostrarFormulario = false" @guardada="actualizarLista" />
+  </div>
+</template>

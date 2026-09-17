@@ -10,6 +10,7 @@ class Orden extends CI_Controller {
 		$this->load->model([
 			"compra/Compra_model",
 			"compra/Compra_detalle_model",
+			"cxp/Cuenta_pagar_model",
 			"inventario/Stock_model",
 			"inventario/Movimiento_model",
 			"mnt/Empresa_model",
@@ -82,6 +83,22 @@ class Orden extends CI_Controller {
 				verPropiedad($datos, "sucursal_id") &&
 				verPropiedad($datos, "detalle")) {
 
+				$proveedor = $this->db->where("id", $datos->proveedor_id)
+					->where("empresa_id", $_SESSION["empresa_id"])->where("activo", 1)
+					->get("proveedor")->row();
+				$formaPago = $this->db->where("id", $datos->forma_pago_id)
+					->where("empresa_id", $_SESSION["empresa_id"])->where("activo", 1)
+					->get("forma_pago")->row();
+
+				if (!$proveedor || !$formaPago) {
+					$data["mensaje"] = "El proveedor o la forma de pago no son válidos.";
+					$this->output->set_output(json_encode($data));
+					return;
+				}
+
+				$nombreFormaPago = trim((string) $formaPago->nombre);
+				$esCredito = strcasecmp($nombreFormaPago, "Crédito") === 0 ||
+					strcasecmp($nombreFormaPago, "Credito") === 0;
 				$total = 0;
 
 				foreach ($datos->detalle as $linea) {
@@ -118,6 +135,11 @@ class Orden extends CI_Controller {
 							break;
 						}
 					}
+
+					if ($guardado) {
+						$guardado = $this->Cuenta_pagar_model->sincronizarCompra($compra, $proveedor, $esCredito);
+						if (!$guardado) $data["mensaje"] = $this->Cuenta_pagar_model->getMensaje();
+					}
 				} else {
 					$data["mensaje"] = $compra->getMensaje();
 				}
@@ -153,7 +175,9 @@ class Orden extends CI_Controller {
 
 			$compra = new Compra_model($id);
 
-			if ($compra->anular() && $this->db->trans_status() !== FALSE) {
+			$cuentaAnulada = $this->Cuenta_pagar_model->anularPorCompra($id);
+
+			if ($cuentaAnulada && $compra->anular() && $this->db->trans_status() !== FALSE) {
 				$this->db->trans_commit();
 
 				$data["exito"] = 1;
@@ -164,7 +188,9 @@ class Orden extends CI_Controller {
 				]);
 			} else {
 				$this->db->trans_rollback();
-				$data["mensaje"] = $compra->getMensaje();
+				$data["mensaje"] = $cuentaAnulada
+					? $compra->getMensaje()
+					: $this->Cuenta_pagar_model->getMensaje();
 			}
 		} else {
 			$data["mensaje"] = "Método de envio incorrecto.";
@@ -289,8 +315,11 @@ class Orden extends CI_Controller {
 			"detalle" => $detalle
 		], true);
 
+		$bufferLevel = ob_get_level();
+		ob_start();
 		$mpdf = new \Mpdf\Mpdf([
 			"format"        => "Letter",
+			"default_font"  => "dejavusanscondensed",
 			"margin_left"   => 12,
 			"margin_right"  => 12,
 			"margin_top"    => 12,
@@ -311,6 +340,9 @@ class Orden extends CI_Controller {
 		$mpdf->WriteHTML($html);
 
 		$pdf = $mpdf->Output("", \Mpdf\Output\Destination::STRING_RETURN);
+		while (ob_get_level() > $bufferLevel) {
+			ob_end_clean();
+		}
 		$archivo = preg_replace('/[^A-Za-z0-9_-]/', '_', $compra->numero) . ".pdf";
 
 		$this->output

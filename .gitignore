@@ -37,6 +37,7 @@ app/*.stTheme.cache
 app/*.sublime-workspace
 app/*.sublime-project
 
+interfaz_
 interfaz/node_modules/
 interfaz/dist/
 interfaz/dist-ssr/

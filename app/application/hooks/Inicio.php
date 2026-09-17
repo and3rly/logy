@@ -17,9 +17,12 @@ class Inicio
 	{
 		$tmp = explode("/", $_SERVER["REQUEST_URI"]);
 		$ruta = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-		$impresionCompra = strpos($ruta, "/compra/orden/imprimir/") !== false;
+		$impresionPdf = strpos($ruta, "/compra/orden/imprimir/") !== false
+			|| strpos($ruta, "/cxc/cuenta_cobrar/imprimir/") !== false
+			|| strpos($ruta, "/cxp/cuenta_pagar/imprimir/") !== false
+			|| strpos($ruta, "/venta/venta/imprimir/") !== false;
 
-		if ($impresionCompra && $this->ci->session->userdata("id")) {
+		if ($impresionPdf && $this->ci->session->userdata("id")) {
 			return;
 		}
 

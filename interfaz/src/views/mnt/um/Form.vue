@@ -1,113 +1,96 @@
-<template>
-	<form @submit.prevent="guardar">
-		<div class="alert alert-light fw-bold">
-			Todos los campos marcados con <span class="text-danger">*</span> son obligatorios.
-		</div>
+<script setup>
+import { onMounted, ref, reactive } from 'vue'
+import { X as Cerrar, Ruler as IconoModulo, Check as Confirmar, LoaderCircle as Cargando } from '@lucide/vue'
+import api from '../../../services/api'
+import { toast } from 'vue3-toastify'
 
-		<div class="row mb-3">
-			<label for="inputCodigo" class="col-sm-2 col-form-label fw-bold">
-				Código: <span class="fw-bold text-danger">*</span>
-			</label>
-			<div class="col-sm-10">
-				<input 
-					id="inputCodigo" 
-					type="text" 
-					class="form-control"
-					v-model="form.codigo"
-					required
-				/>
-			</div>
-		</div>
+const propiedades = defineProps({ registro: { type: Object, default: null } })
+const emitir = defineEmits(['cerrar', 'guardada'])
+const dialogo = ref(null)
+const guardando = ref(false)
+const formulario = reactive({
+  codigo: propiedades.registro?.codigo || '',
+  nombre: propiedades.registro?.nombre || '',
+  activo: propiedades.registro ? Number(propiedades.registro.activo) : 1,
+})
 
-		<div class="row mb-3">
-			<label for="inputCodigo" class="col-sm-2 col-form-label fw-bold">
-				Nombre: <span class="fw-bold text-danger">*</span>
-			</label>
-			<div class="col-sm-10">
-				<input 
-					id="inputNombre" 
-					type="text" 
-					class="form-control"
-					v-model="form.nombre"
-					required
-				/>
-			</div>
-		</div>
+onMounted(() => dialogo.value.showModal())
 
-		<div class="row" v-if="reg != ''">
-			<label class="col-sm-2 col-form-label"></label>
-			<div class="col-sm-9">
-				<div class="form-check form-switch">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						role="switch"
-						id="chkActivo"
-						:true-value="1"
-						:false-value="0"
-						v-model="form.activo"
-					/>
-					<label class="form-check-label" for="chkActivo">Activo</label>
-				</div>
-			</div>
-		</div>
+function cerrar() {
+  if (!guardando.value) emitir('cerrar')
+}
 
-		<div class="col-sm-12 text-end mt-4">
-			<button
-				v-if="reg != ''"
-				type="button" 
-				class="btn btn-secondary me-2" 
-				@click="$emit('cerrar')"
-				:disabled="btnGuardar"
-			>
-				<i class="fas fa-times me-1"></i>Cancelar
-			</button>
-			<button 
-				type="submit" 
-				class="btn btn-theme"
-				:disabled="btnGuardar"
-			>
-				<span 
-					v-if="btnGuardar"
-					class="spinner-border spinner-border-sm" 
-					aria-hidden="true"
-				></span>
-				<i v-else class="fas fa-save me-1"></i>
-				
-				{{ !btnGuardar ? 'Guardar' : 'Guardando...'}}
-			</button>
-		</div>
-	</form>
-</template>
-
-<script>
-	import Logy from "@/mixins/Logy.js"
-
-	export default {
-		name: "FormUm",
-		mixins: [Logy],
-		props: {
-			um: {
-				type: Object,
-				default: null
-			}
-		},
-		data: () => ({
-			form: {},
-			cat: {}
-		}),
-		created() {
-			this.autoBuscar = false
-			this._emit = true
-			this.url = "mnt/unidad_medida"
-
-			if (this.um != null) {
-				this.setDataForm(this.um)
-			} else {
-				this.fbase = {
-					activo: 1
-				}
-			}
-		}
-	}
+async function guardar() {
+  if (guardando.value) return
+  const datos = {
+    codigo: formulario.codigo.trim(),
+    nombre: formulario.nombre.trim(),
+    activo: formulario.activo,
+  }
+  if (!datos.codigo || !datos.nombre) {
+    toast.error('Completa el código y el nombre.')
+    return
+  }
+  guardando.value = true
+  try {
+    const id = propiedades.registro?.id ?? ''
+    const { data: respuesta } = await api.post(`index.php/mnt/unidad_medida/guardar/${encodeURIComponent(id)}`, datos)
+    if (Number(respuesta.exito) !== 1 || !respuesta.linea?.id) {
+      throw new Error(respuesta.mensaje || 'No se pudo guardar la unidad de medida.')
+    }
+    emitir('guardada', respuesta.linea)
+  } catch (problema) {
+    toast.error(problema.message || 'No se pudo guardar. Intenta nuevamente.')
+  } finally {
+    guardando.value = false
+  }
+}
 </script>
+
+<template>
+  <dialog ref="dialogo" class="maintenance-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%_-_2rem)] max-w-lg overflow-y-auto rounded-xl border border-line bg-surface p-0 text-ink shadow-2xl backdrop:bg-slate-950/50" aria-labelledby="titulo-registro" @cancel.prevent="cerrar">
+    <form :aria-busy="guardando" @submit.prevent="guardar">
+      <header class="flex items-center justify-between gap-3 border-b border-line px-5 py-3">
+        <div class="flex items-center gap-3">
+          <span class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"><IconoModulo :size="20" aria-hidden="true" /></span>
+          <div>
+            <h2 id="titulo-registro" class="text-lg font-semibold tracking-tight">{{ registro ? 'Editar unidad de medida' : 'Nueva unidad de medida' }}</h2>
+          </div>
+        </div>
+        <button type="button" class="flex size-10 shrink-0 items-center justify-center rounded-xl text-muted transition-colors hover:bg-soft hover:text-ink" aria-label="Cerrar formulario" :disabled="guardando" @click="cerrar"><Cerrar :size="20" aria-hidden="true" /></button>
+      </header>
+
+      <div class="space-y-4 p-5">
+        <fieldset :disabled="guardando" class="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
+          <legend class="sr-only">Información de la unidad de medida</legend>
+          <div class="sm:col-span-2">
+            <label for="registro-nombre" class="mb-2 block text-sm font-semibold">Nombre <span class="text-accent">*</span></label>
+            <input id="registro-nombre" v-model="formulario.nombre" class="min-h-10 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/10" placeholder="Ej. Kilogramo" required autofocus />
+          </div>
+          <div>
+            <label for="registro-codigo" class="mb-2 block text-sm font-semibold">Código <span class="text-accent">*</span></label>
+            <input id="registro-codigo" v-model="formulario.codigo" class="min-h-10 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/10 font-mono" placeholder="Ej. KG" spellcheck="false" required />
+          </div>
+          <div v-if="registro" class="flex items-center gap-4 sm:col-span-2">
+            <label for="registro-activa" class="text-sm font-semibold">Activo</label>
+            <div class="relative shrink-0">
+              <input id="registro-activa" v-model="formulario.activo" class="peer sr-only" type="checkbox" role="switch" :true-value="1" :false-value="0" />
+              <label for="registro-activa" class="flex min-h-11 cursor-pointer items-center rounded-full peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+                <span class="flex h-6 w-11 items-center rounded-full p-0.5 transition-colors" :class="formulario.activo === 1 ? 'bg-accent' : 'bg-muted'"><span class="size-5 rounded-full bg-white shadow-sm transition-transform motion-reduce:transition-none" :class="{ 'translate-x-5': formulario.activo === 1 }"></span></span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+      </div>
+
+      <footer class="flex flex-col-reverse gap-2 border-t border-line bg-soft/40 px-5 py-3 sm:flex-row sm:justify-end">
+        <button type="button" class="inline-flex min-h-10 items-center justify-center rounded-lg border border-line bg-surface px-5 text-sm font-semibold transition-colors hover:bg-soft" :disabled="guardando" @click="cerrar">Cancelar</button>
+        <button type="submit" class="btn-primary inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold" :disabled="guardando">
+          <Cargando v-if="guardando" :size="17" class="animate-spin motion-reduce:animate-none" aria-hidden="true" /><Confirmar v-else :size="17" aria-hidden="true" />
+          {{ guardando ? 'Guardando…' : 'Guardar' }}
+        </button>
+      </footer>
+    </form>
+  </dialog>
+</template>

@@ -1,59 +1,73 @@
-# hud-vue
+# Logy Admin
 
-This template should help get you started developing with Vue 3 in Vite.
+Plantilla administrativa moderna construida con Vue 3, Vite, Vue Router, Pinia, Axios y Tailwind CSS 4. Lucide se utiliza en controles generales y Font Awesome interpreta los iconos del menú guardados en la base de datos.
 
-## Recommended IDE Setup
+## Ejecutar en desarrollo
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Compilar para producción
 
-```sh
+```bash
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+La URL base de la futura API REST se configura con `VITE_API_BASE_URL`. Copia `.env.example` como `.env` y ajusta el valor para tu backend.
 
-```sh
-npm run test:unit
-```
+## Apariencia
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+Toda la interfaz actual utiliza utilidades de Tailwind: layout, login, vistas de ejemplo y mantenimiento de Monedas. Bootstrap fue retirado. El tema comparte las variables `surface`, `soft`, `canvas`, `ink`, `muted`, `line` y `accent` en `src/assets/css/main.css`. Las nuevas pantallas deben usar estas utilidades para mantener ambos temas, conservar los nombres originales de archivos (por ejemplo, `Principal.vue` y `Form.vue`) y llamar a la instancia compartida de Axios directamente desde las vistas.
 
-```sh
-npm run build
-npm run test:e2e # or `npm run test:e2e:ci` for headless testing
-```
+La integración con Vite sigue la [documentación oficial de Tailwind](https://tailwindcss.com/docs/installation/using-vite). No requiere generar una hoja de estilos por módulo. Los desplegables usan elementos nativos `details` y el formulario de Monedas utiliza `dialog`, con comportamiento controlado por Vue.
 
-### Lint with [ESLint](https://eslint.org/)
+El botón de sol/luna del encabezado permite cambiar toda la plantilla entre modo claro y oscuro. Desde el mismo menú se puede elegir el color de la opción activa del sidebar. Ambas preferencias se guardan en `localStorage`.
 
-```sh
-npm run lint
+Los colores disponibles se administran en `src/components/ui/AppearanceMenu.vue` y el color inicial mediante la variable CSS `--menu-accent` de `src/assets/css/main.css`.
+
+## Autenticación
+
+La ruta `/login` utiliza el flujo existente del backend (`index.php/sesion/login`). Las rutas administrativas requieren una sesión válida, el token se agrega automáticamente a las solicitudes y la opción **Cerrar sesión** finaliza la sesión mediante `index.php/sesion/cerrar_sesion`.
+
+Durante el desarrollo, Vite redirige las solicitudes `/api` a `http://logy.local/`, igual que la interfaz anterior. Este destino se puede cambiar en `vite.config.js`.
+
+## Menú dinámico
+
+Después de autenticar al usuario, el sidebar obtiene módulos y opciones desde `index.php/modulo/buscar`. Los nombres, rutas, jerarquías e iconos provienen directamente del backend. Las clases almacenadas en el campo `icono` se renderizan mediante Font Awesome, sin asignaciones de iconos dentro del frontend.
+
+## Estructura principal
+
+```text
+src/
+├── assets/css/main.css
+├── components/
+│   ├── layout/
+│   │   ├── Footer.vue
+│   │   ├── Header.vue
+│   │   ├── Sidebar.vue
+│   │   └── SidebarMenuItem.vue
+│   └── ui/
+│       ├── BaseCard.vue
+│       ├── BaseTable.vue
+│       └── Breadcrumb.vue
+├── layouts/MainLayout.vue
+├── router/index.js
+├── services/api.js
+├── stores/app.js
+├── stores/menu.js
+├── stores/session.js
+├── views/
+│   ├── DashboardView.vue
+│   ├── LoginView.vue
+│   ├── OperationsView.vue
+│   ├── ReportsView.vue
+│   ├── SettingsView.vue
+│   ├── UsersView.vue
+│   └── mnt/moneda/
+│       ├── Principal.vue
+│       └── Form.vue
+├── App.vue
+└── main.js
 ```

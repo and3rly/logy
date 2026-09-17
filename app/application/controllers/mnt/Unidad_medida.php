@@ -42,7 +42,7 @@ class Unidad_medida extends CI_Controller {
 						"_uno" => true
 					]);
 				} else {	
-					$data["mensaje"] = $umr->getMensaje();
+					$data["mensaje"] = $um->getMensaje();
 				}
 			} else {
 				$data["mensaje"] = "Complete los campos marcados con *.";

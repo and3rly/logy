@@ -45,12 +45,14 @@ class Usuario extends CI_Controller {
 			if (verPropiedad($datos, "nombre") && 
 				verPropiedad($datos, "rol_id") && 
 				verPropiedad($datos, "alias") &&
-				verPropiedad($datos, "clave")) {
+				(!empty($id) || verPropiedad($datos, "clave"))) {
 
 				$us = new Usuario_model($id);
 
 				if (empty($id)) {
 					$datos->clave = password_hash($datos->clave, PASSWORD_DEFAULT);		
+				} else {
+					unset($datos->clave);
 				}
 
 				if ($us->existe($datos)) {

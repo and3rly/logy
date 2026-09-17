@@ -60,7 +60,8 @@ class Usuario_model extends General_model {
 
 		$tmp = $this->db
 		->select("
-			a.*, 
+			a.id, a.nombre, a.alias, a.correo, a.telefono, a.foto,
+			a.activo, a.empresa_id, a.rol_id, a.fecha,
 			b.nombre as nombre_empresa,
 			c.nombre as nombre_rol"
 		)

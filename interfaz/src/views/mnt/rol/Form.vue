@@ -1,96 +1,83 @@
-<template>
-	<form @submit.prevent="guardar">
-		<div class="alert alert-light fw-bold">
-			Todos los campos marcados con <span class="text-danger">*</span> son obligatorios.
-		</div>
+<script setup>
+import { onMounted, reactive, ref } from 'vue'
+import { Check as Confirmar, LoaderCircle as Cargando, ShieldCheck as IconoModulo, X as Cerrar } from '@lucide/vue'
+import api from '../../../services/api'
+import { toast } from 'vue3-toastify'
 
-		<div class="row g-2">
-			<div class="col-sm-12">
-				<label for="inputNombre" class="form-label fw-bold">
-					Nombre: <span class="fw-bold text-danger">*</span>
-				</label>
-				<input
-					id="inputNombre"
-					type="text"
-					class="form-control"
-					v-model="form.nombre"
-					required
-				/>
-			</div>
+const propiedades = defineProps({ registro: { type: Object, default: null } })
+const emitir = defineEmits(['cerrar', 'guardada'])
+const dialogo = ref(null)
+const guardando = ref(false)
+const formulario = reactive({
+  nombre: propiedades.registro?.nombre || '',
+  activo: propiedades.registro ? Number(propiedades.registro.activo) : 1,
+})
 
-			<div class="col-sm-6" v-if="reg != ''">
-				<div class="form-check form-switch">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						role="switch"
-						id="chkActivo"
-						:true-value="1"
-						:false-value="0"
-						v-model="form.activo"
-					/>
-					<label class="form-check-label" for="chkActivo">Activo</label>
-				</div>
-			</div>
+onMounted(() => dialogo.value.showModal())
 
-			<div class="col-sm-12 text-end mt-4">
-				<button
-					type="button"
-					class="btn btn-secondary me-2"
-					@click="$emit('cerrar')"
-					:disabled="btnGuardar"
-				>
-					<i class="fas fa-times me-1"></i>Cancelar
-				</button>
-				<button type="submit" class="btn btn-theme" :disabled="btnGuardar">
-					<span
-						v-if="btnGuardar"
-						class="spinner-border spinner-border-sm"
-						aria-hidden="true"
-					></span>
-					<i v-else class="fas fa-save me-1"></i>
+function cerrar() {
+  if (!guardando.value) emitir('cerrar')
+}
 
-					{{ !btnGuardar ? 'Guardar' : 'Guardando...' }}
-				</button>
-			</div>
-		</div>
-	</form>
-</template>
+async function guardar() {
+  if (guardando.value) return
+  const datos = { nombre: formulario.nombre.trim(), activo: formulario.activo }
+  if (!datos.nombre) {
+    toast.error('Completa el nombre.')
+    return
+  }
 
-<script>
-	import Logy from "@/mixins/Logy.js"
-
-	export default {
-		name: "FormRol",
-		mixins: [Logy],
-		props: {
-			rol: {
-				type: Object,
-				default: null
-			}
-		},
-		data: () => ({
-			form: {}
-		}),
-		created() {
-			this.autoBuscar = false
-			this._emit = true
-			this.url = "mnt/rol"
-
-			if (this.rol !== null) {
-				this.setDataForm(this.rol)
-			} else {
-				this.fbase = {
-					activo: 1
-				}
-			}
-		},
-		watch: {
-			rol(valor) {
-				if (valor) {
-					this.setDataForm(valor)
-				}
-			}
-		}
-	}
+  guardando.value = true
+  try {
+    const id = propiedades.registro?.id ?? ''
+    const { data: respuesta } = await api.post(`index.php/mnt/rol/guardar/${encodeURIComponent(id)}`, datos)
+    if (Number(respuesta.exito) !== 1 || !respuesta.linea?.id) throw new Error(respuesta.mensaje || 'No se pudo guardar el rol.')
+    emitir('guardada', respuesta.linea)
+  } catch (problema) {
+    toast.error(problema.message || 'No se pudo guardar. Intenta nuevamente.')
+  } finally {
+    guardando.value = false
+  }
+}
 </script>
+
+<template>
+  <dialog ref="dialogo" class="maintenance-dialog m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%_-_2rem)] max-w-lg overflow-y-auto rounded-xl border border-line bg-surface p-0 text-ink shadow-2xl backdrop:bg-slate-950/50" aria-labelledby="titulo-rol" @cancel.prevent="cerrar">
+    <form :aria-busy="guardando" @submit.prevent="guardar">
+      <header class="flex items-center justify-between gap-3 border-b border-line px-5 py-3">
+        <div class="flex items-center gap-3">
+          <span class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"><IconoModulo :size="20" aria-hidden="true" /></span>
+          <div><h2 id="titulo-rol" class="text-lg font-semibold tracking-tight">{{ registro ? 'Editar rol' : 'Nuevo rol' }}</h2></div>
+        </div>
+        <button type="button" class="flex size-10 shrink-0 items-center justify-center rounded-xl text-muted transition-colors hover:bg-soft hover:text-ink" aria-label="Cerrar formulario" :disabled="guardando" @click="cerrar"><Cerrar :size="20" aria-hidden="true" /></button>
+      </header>
+
+      <div class="space-y-4 p-5">
+        <fieldset :disabled="guardando" class="grid min-w-0 grid-cols-1 gap-4">
+          <legend class="sr-only">Información del rol</legend>
+          <div>
+            <label for="rol-nombre" class="mb-2 block text-sm font-semibold">Nombre <span class="text-accent">*</span></label>
+            <input id="rol-nombre" v-model="formulario.nombre" class="min-h-10 w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-ink placeholder:text-muted focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/10" placeholder="Ej. Supervisor" required autofocus />
+          </div>
+          <div v-if="registro" class="flex items-center gap-4">
+            <label for="rol-activo" class="text-sm font-semibold">Activo</label>
+            <div class="relative shrink-0">
+              <input id="rol-activo" v-model="formulario.activo" class="peer sr-only" type="checkbox" role="switch" :true-value="1" :false-value="0" />
+              <label for="rol-activo" class="flex min-h-11 cursor-pointer items-center rounded-full peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+                <span class="flex h-6 w-11 items-center rounded-full p-0.5 transition-colors" :class="formulario.activo === 1 ? 'bg-accent' : 'bg-muted'"><span class="size-5 rounded-full bg-white shadow-sm transition-transform motion-reduce:transition-none" :class="{ 'translate-x-5': formulario.activo === 1 }"></span></span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <footer class="flex flex-col-reverse gap-2 border-t border-line bg-soft/40 px-5 py-3 sm:flex-row sm:justify-end">
+        <button type="button" class="inline-flex min-h-10 items-center justify-center rounded-lg border border-line bg-surface px-5 text-sm font-semibold transition-colors hover:bg-soft" :disabled="guardando" @click="cerrar">Cancelar</button>
+        <button type="submit" class="btn-primary inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold" :disabled="guardando">
+          <Cargando v-if="guardando" :size="17" class="animate-spin motion-reduce:animate-none" aria-hidden="true" /><Confirmar v-else :size="17" aria-hidden="true" />
+          {{ guardando ? 'Guardando…' : 'Guardar' }}
+        </button>
+      </footer>
+    </form>
+  </dialog>
+</template>
